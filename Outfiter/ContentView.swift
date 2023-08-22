@@ -1,13 +1,11 @@
 //
 //  ContentView.swift
 //  Outfiter
-//kk
+//
 //  Created by Macky on 7/08/23.
 //
 import SwiftUI
 import Foundation
-
-
 
 struct ContentView: View {
     @StateObject var postProvider = NetworkingProviderPOST()
@@ -64,8 +62,6 @@ class NetworkingProvider: ObservableObject {
     }
     
 }
-
-import Foundation
 
 struct Outfit: Codable, Identifiable {
     let id: String?
