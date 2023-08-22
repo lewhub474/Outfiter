@@ -15,6 +15,7 @@
 		80B2DF7B2A81780D00035BC7 /* OutfiterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2DF7A2A81780D00035BC7 /* OutfiterTests.swift */; };
 		80B2DF852A81780D00035BC7 /* OutfiterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2DF842A81780D00035BC7 /* OutfiterUITests.swift */; };
 		80B2DF872A81780D00035BC7 /* OutfiterUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2DF862A81780D00035BC7 /* OutfiterUITestsLaunchTests.swift */; };
+		E232DB132A948B6A00AD85B8 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E232DB122A948B6A00AD85B8 /* NetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		80B2DF802A81780D00035BC7 /* OutfiterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OutfiterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		80B2DF842A81780D00035BC7 /* OutfiterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfiterUITests.swift; sourceTree = "<group>"; };
 		80B2DF862A81780D00035BC7 /* OutfiterUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfiterUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E232DB122A948B6A00AD85B8 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 		80B2DF682A81780B00035BC7 /* Outfiter */ = {
 			isa = PBXGroup;
 			children = (
+				E232DB112A948B5A00AD85B8 /* Networking */,
 				80B2DF692A81780B00035BC7 /* OutfiterApp.swift */,
 				80B2DF6B2A81780B00035BC7 /* ContentView.swift */,
 				8048EC142A9430F0008C44C3 /* Thrast.swift */,
@@ -128,6 +131,14 @@
 				80B2DF862A81780D00035BC7 /* OutfiterUITestsLaunchTests.swift */,
 			);
 			path = OutfiterUITests;
+			sourceTree = "<group>";
+		};
+		E232DB112A948B5A00AD85B8 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				E232DB122A948B6A00AD85B8 /* NetworkService.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,6 +273,7 @@
 			files = (
 				80B2DF6C2A81780B00035BC7 /* ContentView.swift in Sources */,
 				8048EC152A9430F0008C44C3 /* Thrast.swift in Sources */,
+				E232DB132A948B6A00AD85B8 /* NetworkService.swift in Sources */,
 				80B2DF6A2A81780B00035BC7 /* OutfiterApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
