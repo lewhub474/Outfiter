@@ -2,35 +2,29 @@
 //  PostViewModel.swift
 //  Outfiter
 //
-//  Created by Macky on 7/09/23.
+//  Created by Macky on 21/02/25.
 //
 
-import SwiftUI
+import Foundation
 
 final class PostViewModel: ObservableObject {
-    @Published var datosModelo = [Clothes]()
+    @Published var datosModelo = [Garments]()
     private var provider = NetworkingProvider()
-    
+
     @MainActor func getPosts() async {
         self.datosModelo = await provider.buscarData() ?? []
     }
-    
+
     func deletePost(at index: Int) {
         let outfitToDelete = datosModelo[index]
         
         Task {
             if let response = await provider.deletePost(postID: outfitToDelete.id ?? "") {
                 if response == "Post eliminado" {
+                    // Elimina el post eliminado de los datos locales
                     datosModelo.remove(at: index)
                 }
             }
         }
     }
-    
-    func toggleSelection(for clothing: Clothes) {
-        if let index = datosModelo.firstIndex(where: { $0.id == clothing.id }) {
-            datosModelo[index].isSelected.toggle()
-        }
-    }
-    
 }

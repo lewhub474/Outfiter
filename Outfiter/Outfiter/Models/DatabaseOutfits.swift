@@ -1,16 +1,18 @@
 //
-//  OutfitsSaved.swift
+//  DatabaseOutfits.swift
 //  Outfiter
 //
-//  Created by Macky on 7/09/23.
+//  Created by Macky on 21/02/25.
 //
 
 import Foundation
 
-struct OutfitsSaved: Codable, Identifiable {
+struct DatabaseOutfits: Codable, Identifiable {
     let name: String
     let clothings: [Clothing]
     let id: String
+    
+    //MARK: check what happens in this part of the code: Double Clothing Action 1
     
     struct Clothing: Codable, Identifiable {
         let name: String

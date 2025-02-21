@@ -1,13 +1,14 @@
 //
-//  StorageView.swift
+//  PostDataInputView.swift
 //  Outfiter
 //
-//  Created by Macky on 7/09/23.
+//  Created by Macky on 21/02/25.
 //
 
+import Foundation
 import SwiftUI
 
-struct StorageView: View {
+struct PostDataInputView: View {
     @Binding var name: String
     @Binding var selectedCategory: String
     @Binding var selectedColor: String
@@ -70,6 +71,7 @@ struct StorageView: View {
     
     private func enviarPOST() {
         
+        
         let body: [String: Any] = [
             "name": name,
             "category": selectedCategory,
@@ -81,8 +83,8 @@ struct StorageView: View {
                 postResponse = response
                 await viewModel.getPosts()
                 print("Nombre de la prenda: \(name)")
-                print("Categoría de la prenda: \(selectedCategory)")
-                print("Color de la prenda: \(selectedColor)")
+                            print("Categoría de la prenda: \(selectedCategory)")
+                            print("Color de la prenda: \(selectedColor)")
             } else {
                 postResponse = "Error al enviar POST"
             }

@@ -2,9 +2,10 @@
 //  ViewerOutfits.swift
 //  Outfiter
 //
-//  Created by Macky on 7/09/23.
+//  Created by Macky on 21/02/25.
 //
 
+import Foundation
 import SwiftUI
 
 struct ViewerOutfits: View {

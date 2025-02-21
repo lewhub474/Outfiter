@@ -1,10 +1,11 @@
 //
-//  DressingRoomView.swift
+//  CreateOutfitView.swift
 //  Outfiter
 //
-//  Created by Macky on 7/09/23.
+//  Created by Macky on 21/02/25.
 //
 
+import Foundation
 import SwiftUI
 
 struct CreateOutfitView: View {
@@ -12,9 +13,10 @@ struct CreateOutfitView: View {
     @Binding var outfitName: String
     @State private var outfitResponse: String?
     @ObservedObject var viewModel: PostViewModel
-    let outfits: [Clothes]
+    let outfits: [Garments]
     @StateObject var postProvider = NetworkingProviderOutfit()
     @Environment(\.presentationMode) var presentationMode
+
     
     var body: some View {
         VStack {
@@ -22,7 +24,7 @@ struct CreateOutfitView: View {
                 .font(.title)
                 .bold()
                 .padding()
-            
+                
             Text("Selecciona las prendas para tu outfit:")
                 .font(.title)
                 .padding()
@@ -32,7 +34,7 @@ struct CreateOutfitView: View {
                     let isSelected = selectedClothingIDs.contains(clothing.id ?? "")
                     HStack {
                         Text(clothing.name ?? "Nil")
-                        //                        Text(clothing.color?.color ?? "Nil")
+//                        Text(clothing.color?.color ?? "Nil")
                         Spacer()
                         Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
                             .foregroundColor(isSelected ? .green : .gray)
@@ -65,15 +67,17 @@ struct CreateOutfitView: View {
             .padding()
             
             Text("Respuesta del servidor: \(outfitResponse ?? "")")
-            
+        
         }
     }
     private func enviarOutfit() {
+        // Verifica que haya al menos una prenda seleccionada y un nombre de outfit válido
         guard !selectedClothingIDs.isEmpty, !outfitName.isEmpty else {
             outfitResponse = "Debes seleccionar prendas y proporcionar un nombre."
             return
         }
         
+        // Verifica que todos los IDs seleccionados sean válidos
         let invalidIDs = selectedClothingIDs.filter { id in
             return !viewModel.datosModelo.contains { clothing in
                 return clothing.id == id
@@ -88,21 +92,22 @@ struct CreateOutfitView: View {
         
         
         let selectedClothingDetails: [[String: Any]] = viewModel.datosModelo
-            .filter { selectedClothingIDs.contains($0.id ?? "") }
-            .map { clothing in
-                var clothingDetails = [String: Any]()
-                clothingDetails["id"] = clothing.id
-                clothingDetails["name"] = clothing.name
-                clothingDetails["category"] = clothing.category?.category
-                clothingDetails["color"] = clothing.color?.color
-                return clothingDetails
-            }
-        
+                .filter { selectedClothingIDs.contains($0.id ?? "") }
+                .map { clothing in
+                    var clothingDetails = [String: Any]()
+                    clothingDetails["id"] = clothing.id
+                    clothingDetails["name"] = clothing.name
+                    clothingDetails["category"] = clothing.category?.category
+                    clothingDetails["color"] = clothing.color?.color
+                    return clothingDetails
+                }
+        // Los IDs son válidos, procede con la creación del outfit
         let body: [String: Any] = [
             "name": outfitName,
             "clothings": selectedClothingIDs
         ]
         
+        // Obtenemos los nombres de categorías y colores correspondientes a los IDs seleccionados
         let selectedCategoryNames = viewModel.datosModelo
             .filter { selectedClothingIDs.contains($0.id ?? "") }
             .compactMap { $0.category?.category }
@@ -111,8 +116,8 @@ struct CreateOutfitView: View {
             .filter { selectedClothingIDs.contains($0.id ?? "") }
             .compactMap { $0.color?.color }
         let selectedClothingNames = viewModel.datosModelo
-            .filter { selectedClothingIDs.contains($0.id ?? "") }
-            .compactMap { $0.name }
+                .filter { selectedClothingIDs.contains($0.id ?? "") }
+                .compactMap { $0.name }
         
         print("Nombre del Outfit: \(outfitName)")
         print("Nombres de las prendas seleccionadas: \(selectedClothingNames.joined(separator: ", "))")

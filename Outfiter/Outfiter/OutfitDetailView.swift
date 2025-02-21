@@ -2,22 +2,23 @@
 //  OutfitDetailView.swift
 //  Outfiter
 //
-//  Created by Macky on 7/09/23.
+//  Created by Macky on 21/02/25.
 //
 
+import Foundation
 import SwiftUI
 
 struct OutfitDetailView: View {
-    let outfit: OutfitsSaved
-    
+    let outfit: DatabaseOutfits
+
     var body: some View {
         VStack {
             Text(outfit.name)
                 .font(.title)
-            
-            //            Text("Prendas en este outfit:")
-            //                .font(.headline)
-            
+
+//            Text("Prendas en este outfit:")
+//                .font(.headline)
+
             List(outfit.clothings) { clothing in
                 HStack {
                     Text(clothing.name)
@@ -28,5 +29,6 @@ struct OutfitDetailView: View {
             }
         }
         .padding()
+//        .navigationBarTitle(outfit.name)
     }
 }

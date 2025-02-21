@@ -2,13 +2,13 @@
 //  OutfitViewModel.swift
 //  Outfiter
 //
-//  Created by Macky on 7/09/23.
+//  Created by Macky on 21/02/25.
 //
 
-import SwiftUI
+import Foundation
 
 class OutfitViewModel: ObservableObject {
-    @Published var outfits = [OutfitsSaved]()
+    @Published var outfits = [DatabaseOutfits]()
     
     
     func getOutfitsFromAPI() {
@@ -21,7 +21,7 @@ class OutfitViewModel: ObservableObject {
             do {
                 let (data, _) = try await URLSession.shared.data(from: url)
                 let decoder = JSONDecoder()
-                let decodedOutfits = try decoder.decode([OutfitsSaved].self, from: data)
+                let decodedOutfits = try decoder.decode([DatabaseOutfits].self, from: data)
                 DispatchQueue.main.async { [self] in
                     outfits = decodedOutfits
                 }
@@ -30,13 +30,17 @@ class OutfitViewModel: ObservableObject {
             }
         }
     }
+
+    
 }
+
 
 extension OutfitViewModel {
     func deleteOutfit(at outfitID: String) {
         Task {
             if let response = await deleteOutfitFromAPI(outfitID: outfitID) {
                 if response == "Outfit eliminado" {
+                    // Elimina el outfit eliminado de los datos locales
                     outfits.removeAll { $0.id == outfitID }
                 }
             }
@@ -48,6 +52,7 @@ extension OutfitViewModel {
             print("URL inválida")
             return nil
         }
+
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
 
@@ -61,6 +66,7 @@ extension OutfitViewModel {
         } catch {
             print("Error al eliminar el outfit: \(error)")
         }
+
         return nil
     }
 }

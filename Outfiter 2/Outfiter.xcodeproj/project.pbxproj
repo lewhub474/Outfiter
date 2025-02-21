@@ -7,19 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		80D5D2E82D68681F004C672A /* PostDataInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D5D2E72D68681F004C672A /* PostDataInputView.swift */; };
-		80D5D2EB2D686871004C672A /* NetworkingProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D5D2EA2D686871004C672A /* NetworkingProvider.swift */; };
-		80D5D2ED2D68689B004C672A /* Garments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D5D2EC2D68689B004C672A /* Garments.swift */; };
-		80D5D2EF2D686A0A004C672A /* Clothings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D5D2EE2D686A0A004C672A /* Clothings.swift */; };
-		80D5D2F12D686A37004C672A /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D5D2F02D686A37004C672A /* PostViewModel.swift */; };
-		80D5D2F32D686A5B004C672A /* NetworkingProviderPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D5D2F22D686A5B004C672A /* NetworkingProviderPost.swift */; };
-		80D5D2F52D686A78004C672A /* NetworkingProviderOutfits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D5D2F42D686A78004C672A /* NetworkingProviderOutfits.swift */; };
-		80D5D2F72D686C0A004C672A /* FloatingButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D5D2F62D686C0A004C672A /* FloatingButtonView.swift */; };
-		80D5D2F92D686C43004C672A /* CreateOutfitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D5D2F82D686C43004C672A /* CreateOutfitView.swift */; };
-		80D5D2FB2D686C7E004C672A /* ViewerOutfits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D5D2FA2D686C7E004C672A /* ViewerOutfits.swift */; };
-		80D5D2FD2D686CA2004C672A /* OutfitDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D5D2FC2D686CA2004C672A /* OutfitDetailView.swift */; };
-		80D5D2FF2D686CDA004C672A /* DatabaseOutfits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D5D2FE2D686CDA004C672A /* DatabaseOutfits.swift */; };
-		80D5D3012D686DDE004C672A /* OutfitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D5D3002D686DDE004C672A /* OutfitViewModel.swift */; };
 		E2A9EC052A958C8F005B5502 /* OutfiterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A9EC042A958C8F005B5502 /* OutfiterApp.swift */; };
 		E2A9EC072A958C8F005B5502 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A9EC062A958C8F005B5502 /* ContentView.swift */; };
 		E2A9EC092A958C91005B5502 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2A9EC082A958C91005B5502 /* Assets.xcassets */; };
@@ -27,19 +14,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		80D5D2E72D68681F004C672A /* PostDataInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDataInputView.swift; sourceTree = "<group>"; };
-		80D5D2EA2D686871004C672A /* NetworkingProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingProvider.swift; sourceTree = "<group>"; };
-		80D5D2EC2D68689B004C672A /* Garments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Garments.swift; sourceTree = "<group>"; };
-		80D5D2EE2D686A0A004C672A /* Clothings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clothings.swift; sourceTree = "<group>"; };
-		80D5D2F02D686A37004C672A /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
-		80D5D2F22D686A5B004C672A /* NetworkingProviderPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingProviderPost.swift; sourceTree = "<group>"; };
-		80D5D2F42D686A78004C672A /* NetworkingProviderOutfits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingProviderOutfits.swift; sourceTree = "<group>"; };
-		80D5D2F62D686C0A004C672A /* FloatingButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButtonView.swift; sourceTree = "<group>"; };
-		80D5D2F82D686C43004C672A /* CreateOutfitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOutfitView.swift; sourceTree = "<group>"; };
-		80D5D2FA2D686C7E004C672A /* ViewerOutfits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewerOutfits.swift; sourceTree = "<group>"; };
-		80D5D2FC2D686CA2004C672A /* OutfitDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfitDetailView.swift; sourceTree = "<group>"; };
-		80D5D2FE2D686CDA004C672A /* DatabaseOutfits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseOutfits.swift; sourceTree = "<group>"; };
-		80D5D3002D686DDE004C672A /* OutfitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfitViewModel.swift; sourceTree = "<group>"; };
 		E2A9EC012A958C8F005B5502 /* Outfiter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Outfiter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2A9EC042A958C8F005B5502 /* OutfiterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfiterApp.swift; sourceTree = "<group>"; };
 		E2A9EC062A958C8F005B5502 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -58,43 +32,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		80D5D2E42D686757004C672A /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				80D5D2E72D68681F004C672A /* PostDataInputView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		80D5D2E52D686760004C672A /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				80D5D2EC2D68689B004C672A /* Garments.swift */,
-				80D5D2EE2D686A0A004C672A /* Clothings.swift */,
-				80D5D2FE2D686CDA004C672A /* DatabaseOutfits.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		80D5D2E62D686768004C672A /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				80D5D2F02D686A37004C672A /* PostViewModel.swift */,
-				80D5D3002D686DDE004C672A /* OutfitViewModel.swift */,
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		80D5D2E92D68684D004C672A /* Networking */ = {
-			isa = PBXGroup;
-			children = (
-				80D5D2EA2D686871004C672A /* NetworkingProvider.swift */,
-				80D5D2F22D686A5B004C672A /* NetworkingProviderPost.swift */,
-				80D5D2F42D686A78004C672A /* NetworkingProviderOutfits.swift */,
-			);
-			path = Networking;
-			sourceTree = "<group>";
-		};
 		E2A9EBF82A958C8F005B5502 = {
 			isa = PBXGroup;
 			children = (
@@ -114,16 +51,8 @@
 		E2A9EC032A958C8F005B5502 /* Outfiter */ = {
 			isa = PBXGroup;
 			children = (
-				80D5D2E92D68684D004C672A /* Networking */,
-				80D5D2E62D686768004C672A /* ViewModels */,
-				80D5D2E52D686760004C672A /* Models */,
-				80D5D2E42D686757004C672A /* Views */,
 				E2A9EC042A958C8F005B5502 /* OutfiterApp.swift */,
 				E2A9EC062A958C8F005B5502 /* ContentView.swift */,
-				80D5D2F62D686C0A004C672A /* FloatingButtonView.swift */,
-				80D5D2F82D686C43004C672A /* CreateOutfitView.swift */,
-				80D5D2FA2D686C7E004C672A /* ViewerOutfits.swift */,
-				80D5D2FC2D686CA2004C672A /* OutfitDetailView.swift */,
 				E2A9EC082A958C91005B5502 /* Assets.xcassets */,
 				E2A9EC0A2A958C91005B5502 /* Preview Content */,
 			);
@@ -208,21 +137,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80D5D3012D686DDE004C672A /* OutfitViewModel.swift in Sources */,
-				80D5D2F32D686A5B004C672A /* NetworkingProviderPost.swift in Sources */,
-				80D5D2FF2D686CDA004C672A /* DatabaseOutfits.swift in Sources */,
 				E2A9EC072A958C8F005B5502 /* ContentView.swift in Sources */,
-				80D5D2FB2D686C7E004C672A /* ViewerOutfits.swift in Sources */,
-				80D5D2F12D686A37004C672A /* PostViewModel.swift in Sources */,
-				80D5D2F92D686C43004C672A /* CreateOutfitView.swift in Sources */,
 				E2A9EC052A958C8F005B5502 /* OutfiterApp.swift in Sources */,
-				80D5D2EB2D686871004C672A /* NetworkingProvider.swift in Sources */,
-				80D5D2EF2D686A0A004C672A /* Clothings.swift in Sources */,
-				80D5D2FD2D686CA2004C672A /* OutfitDetailView.swift in Sources */,
-				80D5D2E82D68681F004C672A /* PostDataInputView.swift in Sources */,
-				80D5D2F72D686C0A004C672A /* FloatingButtonView.swift in Sources */,
-				80D5D2ED2D68689B004C672A /* Garments.swift in Sources */,
-				80D5D2F52D686A78004C672A /* NetworkingProviderOutfits.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
