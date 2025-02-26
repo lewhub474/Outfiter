@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NetworkingProvider: ObservableObject {
+class NetworkingProviderCloset: ObservableObject {
     func buscarData() async -> [Garments]? {
         guard let url = URL(string: "https://backend-ot4e.onrender.com/api/clothings") else {
             print("Url invalida")

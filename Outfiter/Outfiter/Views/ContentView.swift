@@ -17,7 +17,7 @@ struct ContentView: View {
     @State private var showOutfits = false
     @State private var selectedClothingIDs: [String] = []
     @State private var outfitName = ""
-    @StateObject var viewModel = PostViewModel()
+    @StateObject var viewModel = ClosetViewModel()
     @State private var selectedClothing: Garments? = nil  // Prenda seleccionada
     
     var body: some View {
@@ -86,7 +86,7 @@ struct ContentView: View {
             }
         }
         .sheet(isPresented: $showPostDataInput) {
-            PostDataInputView(name: $name, selectedCategory: $selectedCategory, selectedColor: $selectedColor)
+            AddClothingView(name: $name, selectedCategory: $selectedCategory, selectedColor: $selectedColor)
                 .onDisappear {
                     Task {
                         await viewModel.getPosts()

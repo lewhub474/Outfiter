@@ -7,9 +7,9 @@
 
 import Foundation
 
-final class PostViewModel: ObservableObject {
+final class ClosetViewModel: ObservableObject {
     @Published var datosModelo = [Garments]()
-    private var provider = NetworkingProvider()
+    private var provider = NetworkingProviderCloset()
 
     @MainActor func getPosts() async {
         self.datosModelo = await provider.buscarData() ?? []

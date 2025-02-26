@@ -12,7 +12,7 @@ struct CreateOutfitView: View {
     @Binding var selectedClothingIDs: [String]
     @Binding var outfitName: String
     @State private var outfitResponse: String?
-    @ObservedObject var viewModel: PostViewModel
+    @ObservedObject var viewModel: ClosetViewModel
     let outfits: [Garments]
     @StateObject var postProvider = NetworkingProviderOutfit()
     @Environment(\.presentationMode) var presentationMode
