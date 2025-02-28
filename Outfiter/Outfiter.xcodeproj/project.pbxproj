@@ -31,7 +31,7 @@
 		80D5D2FF2D686CDA004C672A /* DatabaseOutfits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D5D2FE2D686CDA004C672A /* DatabaseOutfits.swift */; };
 		80D5D3012D686DDE004C672A /* OutfitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D5D3002D686DDE004C672A /* OutfitViewModel.swift */; };
 		E2A9EC052A958C8F005B5502 /* OutfiterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A9EC042A958C8F005B5502 /* OutfiterApp.swift */; };
-		E2A9EC072A958C8F005B5502 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A9EC062A958C8F005B5502 /* ContentView.swift */; };
+		E2A9EC072A958C8F005B5502 /* ClosetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A9EC062A958C8F005B5502 /* ClosetView.swift */; };
 		E2A9EC092A958C91005B5502 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2A9EC082A958C91005B5502 /* Assets.xcassets */; };
 		E2A9EC0C2A958C91005B5502 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2A9EC0B2A958C91005B5502 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -62,7 +62,7 @@
 		80D5D3002D686DDE004C672A /* OutfitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfitViewModel.swift; sourceTree = "<group>"; };
 		E2A9EC012A958C8F005B5502 /* Outfiter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Outfiter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2A9EC042A958C8F005B5502 /* OutfiterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfiterApp.swift; sourceTree = "<group>"; };
-		E2A9EC062A958C8F005B5502 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E2A9EC062A958C8F005B5502 /* ClosetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosetView.swift; sourceTree = "<group>"; };
 		E2A9EC082A958C91005B5502 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E2A9EC0B2A958C91005B5502 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -126,7 +126,7 @@
 		80D5D2E42D686757004C672A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E2A9EC062A958C8F005B5502 /* ContentView.swift */,
+				E2A9EC062A958C8F005B5502 /* ClosetView.swift */,
 				801229222D6C3ADB00C7A410 /* ClothingForOutfitsView.swift */,
 				80D5D2F62D686C0A004C672A /* FloatingButtonView.swift */,
 				80D5D2E72D68681F004C672A /* AddClothingView.swift */,
@@ -283,7 +283,7 @@
 				801E93312D69A82C00533D3D /* CreateOutfitUseCaseProtocol.swift in Sources */,
 				8012291A2D6C363800C7A410 /* GetOutfitsUseCaseProtocol.swift in Sources */,
 				80D5D2FF2D686CDA004C672A /* DatabaseOutfits.swift in Sources */,
-				E2A9EC072A958C8F005B5502 /* ContentView.swift in Sources */,
+				E2A9EC072A958C8F005B5502 /* ClosetView.swift in Sources */,
 				8012291F2D6C368C00C7A410 /* DeleteOutfitUseCase.swift in Sources */,
 				801E932D2D69A79500533D3D /* Categories.swift in Sources */,
 				80D5D2FB2D686C7E004C672A /* ViewerOutfits.swift in Sources */,

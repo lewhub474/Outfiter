@@ -121,11 +121,13 @@ struct AddClothingView: View {
     ]
     
     var body: some View {
-        VStack(spacing: 20) {
+//        VStack(spacing: 20) {
             // Título y subtítulo
             VStack {
+                
                 Text("Suma al Closet")
-                    .font(.largeTitle)
+//                    .font(.largeTitle)
+                    .font(.title)
                     .fontWeight(.bold)
                     .padding(.top, 20)
                 
@@ -133,6 +135,7 @@ struct AddClothingView: View {
                     .font(.title3)
                     .foregroundColor(.gray)
             }
+            
             .padding(.bottom, 40)
             
 //            TextField("Nombre", text: $name)
@@ -158,7 +161,7 @@ struct AddClothingView: View {
                 }
 //            }
 //            .pickerStyle(SegmentedPickerStyle())
-            .padding()
+//            .padding()
 
             // Picker de colores
 //            Picker("Color", selection: $selectedColor) {
@@ -178,7 +181,7 @@ struct AddClothingView: View {
             }) {
                 Text("Añadir Prenda")
                     .frame(width: 200, height: 40)
-                    .background(.blue)
+                    .background(.black)
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
@@ -187,8 +190,8 @@ struct AddClothingView: View {
             // Respuesta del POST
 //            Text("Respuesta POST: \(postResponse ?? "")")
 //                .padding(.top, 10)
-        }
-        .padding(.horizontal, 20) // Márgenes para que no se pegue a los bordes
+//        }
+//        .padding(.horizontal, 20) // Márgenes para que no se pegue a los bordes
     }
     
     private func enviarPOST() {

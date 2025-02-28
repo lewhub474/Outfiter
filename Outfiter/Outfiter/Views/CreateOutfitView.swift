@@ -23,12 +23,27 @@ struct CreateOutfitView: View {
             Text("Dressing Room")
                 .font(.title)
                 .bold()
-                .padding()
-                
-            Text("Selecciona las prendas para tu outfit:")
-                .font(.title)
-                .padding()
+                .padding(.top, 20)
             
+            Text("Selecciona las prendas para tu outfit:")
+                .font(.title3)
+                .foregroundColor(.gray)
+            
+//            Text("Selecciona las prendas para tu outfit:")
+//                .font(.title)
+//                .padding()
+            
+//            TextField("Nombre del outfit", text: $outfitName)
+//                .textFieldStyle(RoundedBorderTextFieldStyle())
+//                .padding()
+            TextField("Nombre del outfit", text: $outfitName)
+                            .padding(10) // Espaciado interno
+                            .background(.white) // Fondo blanco para que el campo de texto resalte
+                            .cornerRadius(8) // Bordes redondeados
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8) // Crea un borde alrededor
+                                    .stroke(.black, lineWidth: 1) // Color y grosor del borde
+                            ).padding()
             List {
                 ForEach(viewModel.datosModelo) { clothing in
                     let isSelected = selectedClothingIDs.contains(clothing.id ?? "")
@@ -51,23 +66,19 @@ struct CreateOutfitView: View {
                 }
             }
             
-            TextField("Nombre del outfit", text: $outfitName)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
+            
             Button(action: {
                 enviarOutfit()
                 presentationMode.wrappedValue.dismiss()
             }) {
                 Text("Crear Outfit")
                     .frame(width: 200, height: 40)
-                    .background(.blue)
+                    .background(.black)
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
             .padding()
-            
-            Text("Respuesta del servidor: \(outfitResponse ?? "")")
-        
+                    
         }
     }
     private func enviarOutfit() {

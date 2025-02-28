@@ -1,5 +1,5 @@
 //  Funcional
-//  ContentView.swift
+//  ClosetView.swift
 //  Outfiter
 //
 //  Created by Andres Diaz  on 22/08/23.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Foundation
 
-struct ContentView: View {
+struct ClosetView: View {
     @State private var showPostDataInput = false
     @State private var name = ""
     @State private var selectedCategory = "64ca77d45cf35ef21b7ece5a"
@@ -48,8 +48,8 @@ struct ContentView: View {
                                             HStack {
                                                 Image(systemName: "person.and.background.dotted")
                                                     .font(.subheadline)
-                                                    .foregroundColor(.blue)
-                                                Text("Dressing Room").foregroundColor(.blue)
+                                                    .foregroundColor(.black)
+                                                Text("Dressing Room").foregroundColor(.black)
                                             }
                                         },
                                     trailing: Button(action: {
@@ -58,8 +58,8 @@ struct ContentView: View {
                                         HStack {
                                             Image(systemName: "star.circle")
                                                 .font(.subheadline)
-                                                .foregroundColor(.blue)
-                                            Text("Outfits").foregroundColor(.blue)
+                                                .foregroundColor(.black)
+                                            Text("Outfits").foregroundColor(.black)
                                         }
                                     }
                 )
@@ -76,7 +76,7 @@ struct ContentView: View {
                                 .font(.largeTitle)
                                 .foregroundColor(.white)
                                 .padding()
-                                .background(.blue)
+                                .background(.black)
                                 .clipShape(Circle())
                                 .shadow(radius: 5)
                         }
