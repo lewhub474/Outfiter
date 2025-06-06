@@ -4,6 +4,7 @@
 //
 //  Created by Andres Diaz  on 22/08/23.
 //
+//
 
 import SwiftUI
 import Foundation
@@ -21,6 +22,7 @@ struct ClosetView: View {
     @State private var selectedClothing: Garments? = nil
     @State private var showImageUploader = false
     @State private var uploadedImageURL: String? = nil
+    @State private var showAddClothingWithImage = false
 
     var body: some View {
         NavigationView {
@@ -41,7 +43,8 @@ struct ClosetView: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        
+
+                        // Botón: Subir imagen (ImageUploader)
                         Button(action: {
                             showImageUploader.toggle()
                         }) {
@@ -49,12 +52,13 @@ struct ClosetView: View {
                                 .font(.title)
                                 .foregroundColor(.white)
                                 .padding()
-                                .background(SwiftUI.Color.blue)
+                                .background(.blue)
                                 .clipShape(Circle())
                                 .shadow(radius: 5)
                         }
                         .padding(.trailing, 10)
-                        
+
+                        // Botón: Añadir prenda sin imagen
                         Button(action: {
                             showPostDataInput.toggle()
                         }) {
@@ -66,8 +70,23 @@ struct ClosetView: View {
                                 .clipShape(Circle())
                                 .shadow(radius: 5)
                         }
-                        .padding()
+                        .padding(.trailing, 10)
+
+                        // Botón: Añadir prenda con imagen
+                        Button(action: {
+                            showAddClothingWithImage = true
+                        }) {
+                            Image(systemName: "photo.on.rectangle")
+                                .font(.title)
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(.green)
+                                .clipShape(Circle())
+                                .shadow(radius: 4)
+                        }
+                        .padding(.trailing, 16)
                     }
+                    .padding(.bottom, 20)
                 }
             }
             .navigationBarTitle("Closet")
@@ -120,11 +139,18 @@ struct ClosetView: View {
         .sheet(isPresented: $showOutfits) {
             ViewerOutfits()
         }
-//        .sheet(isPresented: $showImageUploader) {
-//            ImageUploadView()
-//        }
+        .sheet(isPresented: $showAddClothingWithImage) {
+            AddClothingWithImageView(
+                name: $name,
+                selectedCategory: $selectedCategory,
+                selectedColor: $selectedColor
+            )
+            .onDisappear {
+                Task {
+                    await viewModel.getPosts()
+                }
+            }
+        }
         .environmentObject(viewModel)
     }
 }
-
-

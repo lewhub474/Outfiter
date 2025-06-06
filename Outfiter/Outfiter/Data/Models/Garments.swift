@@ -16,8 +16,9 @@ struct Garments: Codable, Identifiable {
     var clothings: [Clothing]? // Agrega esta propiedad
 
     enum CodingKeys: String, CodingKey {
-        case id, name, imgURL
-        case category = "category"
-        case color = "color"
+        case id, name
+        case imgURL = "image_url"
+        case category
+        case color
     }
 }

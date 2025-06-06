@@ -13,8 +13,8 @@ struct ClothingCard: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            AsyncImage(url: URL(string: "https://gw.alicdn.com/imgextra/O1CN01lh9Qo51JUFAR4BLqW_!!6000000001031-0-yinhe.jpg"))
-            { phase in
+            AsyncImage(url: URL(string: garment.imgURL ?? ""))
+                        { phase in
                 switch phase {
                 case .success(let image):
                     image
