@@ -19,66 +19,70 @@ struct CreateOutfitView: View {
 
     
     var body: some View {
-        VStack {
-            Text("Dressing Room")
-                .font(.title)
-                .bold()
-                .padding(.top, 20)
-            
-            Text("Selecciona las prendas para tu outfit:")
-                .font(.title3)
-                .foregroundColor(.gray)
-            
-//            Text("Selecciona las prendas para tu outfit:")
-//                .font(.title)
-//                .padding()
-            
-//            TextField("Nombre del outfit", text: $outfitName)
-//                .textFieldStyle(RoundedBorderTextFieldStyle())
-//                .padding()
-            TextField("Nombre del outfit", text: $outfitName)
-                            .padding(10) // Espaciado interno
-                            .background(.white) // Fondo blanco para que el campo de texto resalte
-                            .cornerRadius(8) // Bordes redondeados
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8) // Crea un borde alrededor
-                                    .stroke(.black, lineWidth: 1) // Color y grosor del borde
-                            ).padding()
-            List {
-                ForEach(viewModel.datosModelo) { clothing in
-                    let isSelected = selectedClothingIDs.contains(clothing.id ?? "")
-                    HStack {
-                        Text(clothing.name ?? "Nil")
-//                        Text(clothing.color?.color ?? "Nil")
-                        Spacer()
-                        Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                            .foregroundColor(isSelected ? .green : .gray)
-                    }
-                    .onTapGesture {
-                        if isSelected {
-                            // Si ya está seleccionada, deselecciónala
-                            selectedClothingIDs.removeAll { $0 == clothing.id }
-                        } else {
-                            // Si no está seleccionada, selecciónala
-                            selectedClothingIDs.append(clothing.id ?? "")
+        NavigationView {
+            ZStack {
+                VStack {
+                Text("Dressing Room")
+                    .font(.title)
+                    .bold()
+                    .padding(.top, 20)
+                
+                Text("Selecciona las prendas para tu outfit:")
+                    .font(.title3)
+                    .foregroundColor(.gray)
+                
+                //            Text("Selecciona las prendas para tu outfit:")
+                //                .font(.title)
+                //                .padding()
+                
+                //            TextField("Nombre del outfit", text: $outfitName)
+                //                .textFieldStyle(RoundedBorderTextFieldStyle())
+                //                .padding()
+                TextField("Nombre del outfit", text: $outfitName)
+                    .padding(10) // Espaciado interno
+                    .background(.white) // Fondo blanco para que el campo de texto resalte
+                    .cornerRadius(8) // Bordes redondeados
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8) // Crea un borde alrededor
+                            .stroke(.black, lineWidth: 1) // Color y grosor del borde
+                    ).padding()
+                List {
+                    ForEach(viewModel.datosModelo) { clothing in
+                        let isSelected = selectedClothingIDs.contains(clothing.id ?? "")
+                        HStack {
+                            Text(clothing.name ?? "Nil")
+                            //                        Text(clothing.color?.color ?? "Nil")
+                            Spacer()
+                            Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                                .foregroundColor(isSelected ? .green : .gray)
+                        }
+                        .onTapGesture {
+                            if isSelected {
+                                // Si ya está seleccionada, deselecciónala
+                                selectedClothingIDs.removeAll { $0 == clothing.id }
+                            } else {
+                                // Si no está seleccionada, selecciónala
+                                selectedClothingIDs.append(clothing.id ?? "")
+                            }
                         }
                     }
                 }
+                
+                
+                Button(action: {
+                    enviarOutfit()
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    Text("Crear Outfit")
+                        .frame(width: 200, height: 40)
+                        .background(.black)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .padding()
+                
+                }   .padding(.bottom, 40)
             }
-            
-            
-            Button(action: {
-                enviarOutfit()
-                presentationMode.wrappedValue.dismiss()
-            }) {
-                Text("Crear Outfit")
-                    .frame(width: 200, height: 40)
-                    .background(.black)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            .padding()
-                    
         }
     }
     private func enviarOutfit() {

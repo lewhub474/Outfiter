@@ -23,98 +23,99 @@ struct ClosetView: View {
     @State private var showImageUploader = false
     @State private var uploadedImageURL: String? = nil
     @State private var showAddClothingWithImage = false
-
+    @State private var showSideMenu = false
+    @State private var textSearch = ""
+    
+    
     var body: some View {
         NavigationView {
+            
             ZStack {
-                ClothingListView(garments: viewModel.datosModelo)
-                    .blur(radius: viewModel.isLoading ? 3 : 0)
-                    .disabled(viewModel.isLoading)
-
-                if viewModel.isLoading {
-                    SwiftUI.Color.black.opacity(0.2).ignoresSafeArea()
-                    ProgressView("Cargando...")
-                        .padding()
-                        .background(.ultraThinMaterial)
-                        .cornerRadius(12)
-                }
-
+                Color.black
+                    .ignoresSafeArea()
                 VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-
-                        // Botón: Subir imagen (ImageUploader)
-                        Button(action: {
-                            showImageUploader.toggle()
-                        }) {
-                            Image(systemName: "square.and.arrow.down")
-                                .font(.title)
-                                .foregroundColor(.white)
-                                .padding()
-                                .background(.blue)
-                                .clipShape(Circle())
-                                .shadow(radius: 5)
+                    
+                    TopBarView2(showSideMenu: $showSideMenu, userName: "Lewis Ferreira", profileImage:   Image("tendativa_banner"))
+                    
+                    StoryTabBar(stories: [
+                        StoryItem(
+                            image: Image("tendativa_banner"),
+                            label: "Favoritos",
+                            borderColor: .green,
+                            action: { print("Favoritos") }
+                        ),
+                        StoryItem(
+                            image: Image("jacket.image"),
+                            label: "Camisetas",
+                            borderColor: .purple,
+                            action: { print("Camisetas") }
+                        ),
+                        StoryItem(
+                            image: Image("pants.image"),
+                            label: "Pantalones",
+                            borderColor: .orange,
+                            action: { print("Pantalones") }
+                        ),
+                        StoryItem(
+                            image: Image( "headphones.image"),
+                            label: "Accesorios",
+                            borderColor: .gray,
+                            action: { print("Accesorios") }
+                        )
+                    ])
+                    
+                    //                        .padding(.vertical, 30)
+                    //                    CustomTextField(placeholder: "Encuentra", text: $textSearch)
+                    //                        .padding(.horizontal, 15)
+                    //                        .padding(.vertical, 5)
+                    
+                    ZStack {
+                        ClothingListView(garments: viewModel.datosModelo) .ignoresSafeArea()
+                            .blur(radius: viewModel.isLoading ? 3 : 0)
+                            .disabled(viewModel.isLoading)
+                        //                        VStack {
+                        if viewModel.isLoading {
+                            
+                            ZStack {
+                                SwiftUI.Color.black.opacity(0.4).ignoresSafeArea()
+                                
+                                GIFView(gifName: "TDTV_loading")
+                                    .frame(width: 150, height: 150)
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                            }.onAppear {
+                                viewModel.printseñal()
+                            }
                         }
-                        .padding(.trailing, 10)
-
-                        // Botón: Añadir prenda sin imagen
-                        Button(action: {
-                            showPostDataInput.toggle()
-                        }) {
-                            Image(systemName: "plus")
-                                .font(.largeTitle)
-                                .foregroundColor(.white)
-                                .padding()
-                                .background(.black)
-                                .clipShape(Circle())
-                                .shadow(radius: 5)
+                        
+                        if let error = viewModel.errorMessage {
+                            ZStack {
+                                Color.black.opacity(0.6).ignoresSafeArea()
+                                VStack(spacing: 16) {
+                                    GIFView(gifName: "TDTV_loading") // Puedes usar uno distinto para errores
+                                        .frame(width: 150, height: 150)
+                                    Text(error)
+                                        .foregroundColor(.white)
+                                        .multilineTextAlignment(.center)
+                                        .padding(.horizontal)
+                                }
+                            }
                         }
-                        .padding(.trailing, 10)
-
-                        // Botón: Añadir prenda con imagen
-                        Button(action: {
-                            showAddClothingWithImage = true
-                        }) {
-                            Image(systemName: "photo.on.rectangle")
-                                .font(.title)
-                                .foregroundColor(.white)
-                                .padding()
-                                .background(.green)
-                                .clipShape(Circle())
-                                .shadow(radius: 4)
+                        
+                        if showSideMenu {
+                            SideMenuView()
+                                .transition(.move(edge: .leading))
+                                .zIndex(1)
                         }
-                        .padding(.trailing, 16)
                     }
-                    .padding(.bottom, 20)
+                    
                 }
             }
-            .navigationBarTitle("Closet")
-            .navigationBarItems(
-                leading: Button(action: {
-                    creatorOutfits.toggle()
-                }) {
-                    HStack {
-                        Image(systemName: "person.and.background.dotted")
-                            .font(.subheadline)
-                            .foregroundColor(.black)
-                        Text("Dressing Room").foregroundColor(.black)
-                    }
-                },
-                trailing: Button(action: {
-                    showOutfits.toggle()
-                }) {
-                    HStack {
-                        Image(systemName: "star.circle")
-                            .font(.subheadline)
-                            .foregroundColor(.black)
-                        Text("Outfits").foregroundColor(.black)
-                    }
-                }
-            )
-            .task {
-                await viewModel.getPosts()
-            }
+        }
+        .ignoresSafeArea(.keyboard)
+        
+        
+        .task {
+            await viewModel.getPosts()
         }
         .sheet(isPresented: $showPostDataInput) {
             AddClothingView(
@@ -128,19 +129,12 @@ struct ClosetView: View {
                 }
             }
         }
-        .sheet(isPresented: $creatorOutfits) {
-            CreateOutfitView(
-                selectedClothingIDs: $selectedClothingIDs,
-                outfitName: $outfitName,
-                viewModel: viewModel,
-                outfits: viewModel.datosModelo
-            )
-        }
+        
         .sheet(isPresented: $showOutfits) {
             ViewerOutfits()
         }
         .sheet(isPresented: $showAddClothingWithImage) {
-            AddClothingWithImageView(
+            AddClothingUploadImage(
                 name: $name,
                 selectedCategory: $selectedCategory,
                 selectedColor: $selectedColor
@@ -154,3 +148,9 @@ struct ClosetView: View {
         .environmentObject(viewModel)
     }
 }
+
+#Preview {
+    let mockViewModel = ClosetViewModelMock(isLoading: false)
+    ClosetView(viewModel: mockViewModel)
+}
+

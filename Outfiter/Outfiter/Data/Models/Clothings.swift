@@ -11,6 +11,6 @@ struct Clothing: Codable, Identifiable { // Define la estructura Clothing para r
     let id: String?
     let name: String?
     let category: Category?
-    let color: Color?
+    let color: ColorClothes?
     let imageUrl: String?
 }

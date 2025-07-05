@@ -7,22 +7,35 @@
 
 import Foundation
 
-final class ClosetViewModel: ObservableObject {
+class ClosetViewModel: ObservableObject {
     @Published var datosModelo = [Garments]()
     @Published var isLoading = false
-
+    @Published var errorMessage: String? = nil
+    
+    
     private var provider = NetworkingProviderCloset()
-
+    
     @MainActor
     func getPosts() async {
         isLoading = true
-        datosModelo = await provider.buscarData() ?? []
-        isLoading = false
+        errorMessage = nil
+        defer { isLoading = false }
+        
+        do {
+            datosModelo = try await provider.buscarData()
+        } catch {
+            errorMessage = "Sin conexión a internet o error inesperado."
+            print("❌ Error al obtener prendas: \(error.localizedDescription)")
+        }
     }
 
+    func printseñal() {
+        print("Aparecio el GIF")
+    }
+    
     func deletePost(at index: Int) async -> Bool {
         let outfitToDelete = datosModelo[index]
-
+        
         let response = await provider.deletePost(postID: outfitToDelete.id ?? "")
         if response == "Post eliminado" {
             datosModelo.remove(at: index)

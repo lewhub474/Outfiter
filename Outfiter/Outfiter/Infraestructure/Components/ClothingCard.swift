@@ -9,71 +9,86 @@ import SwiftUI
 
 struct ClothingCard: View {
     let garment: Garments
-    @EnvironmentObject var viewModel: ClosetViewModel  // Accede al ViewModel
+    @EnvironmentObject var viewModel: ClosetViewModel
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            AsyncImage(url: URL(string: garment.imgURL ?? ""))
-                        { phase in
+        ZStack(alignment: .bottom) {
+            
+            // Imagen principal ocupando todo el fondo
+            AsyncImage(url: URL(string: garment.imgURL ?? "")) { phase in
                 switch phase {
                 case .success(let image):
                     image
                         .resizable()
-                        .aspectRatio(1, contentMode: .fill)
-                        .frame(width: 160, height: 160)
-                        .clipped()
-                        .cornerRadius(12)
+                        .scaledToFill()
+                        .frame(width: 180, height: 240) // Relación 3:4
+                        .clipped() // Recorta todo lo que se salga
                 default:
                     Rectangle()
-                        .fill(SwiftUI.Color.gray.opacity(0.3))
-                        .frame(width: 160, height: 160)
-                        .cornerRadius(12)
+                        .fill(Color.gray.opacity(0.3))
+                        .frame(width: 180, height: 240)
                 }
             }
 
-            VStack(alignment: .leading, spacing: 4) {
+            // Capa inferior con nombre y botón
+            HStack {
                 Text(garment.name ?? "Sin nombre")
                     .font(.headline)
-                    .foregroundColor(.black)
+                    .foregroundColor(.white)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.6)
                     .multilineTextAlignment(.leading)
-                    .lineLimit(3)
-                    .minimumScaleFactor(0.8)
 
-                Text("Categoría: \(garment.category?.category ?? "Desconocida")")
-                    .font(.subheadline)
-                    .foregroundColor(.black.opacity(0.9))
+                Spacer()
 
-                Text("Color: \(garment.color?.color ?? "Desconocido")")
-                    .font(.caption)
-                    .foregroundColor(.black.opacity(0.7))
-            }
-            .padding(.horizontal, 6)
-
-            // Botón para eliminar la prenda
-            Button(action: {
-                Task {
-                    if let index = viewModel.datosModelo.firstIndex(where: { $0.id == garment.id }) {
-                        // Muestra loading
-                        viewModel.isLoading = true
-                        let success = await viewModel.deletePost(at: index)
+                Button(action: {
+                    Task {
+                        if let index = viewModel.datosModelo.firstIndex(where: { $0.id == garment.id }) {
+                            viewModel.isLoading = true
+                            let _ = await viewModel.deletePost(at: index)
                             await viewModel.getPosts()
-                        viewModel.isLoading = false
+                            viewModel.isLoading = false
+                        }
                     }
+                }) {
+                    Image(systemName: "trash")
+                        .foregroundColor(.white)
+                        .padding(6)
+                        .background(Circle().fill(Color.black.opacity(0.5))) // Fondo oscuro para contraste
                 }
-            }) {
-                Image(systemName: "trash")
-                    .foregroundColor(.red)
-                    .padding(5)
-                    .background(Circle().fill(.white))
-                    .shadow(radius: 5)
             }
-            .padding(.top, 5)
+            .padding(8)
+            .frame(width: 180)
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.black.opacity(0.6), Color.clear]),
+                    startPoint: .bottom,
+                    endPoint: .top
+                )
+                .frame(height: 60), alignment: .bottom
+            )
         }
-        .padding()
-        .frame(width: 180, height: 280) // Ajusté la altura para acomodar el botón
-        .background(.ultraThinMaterial)
-        .cornerRadius(16)
-        .shadow(radius: 5)
+        .frame(width: 180, height: 240)
+        .cornerRadius(8)
+        .clipped()
     }
 }
 
+#Preview {
+    let sampleGarment = Garments(
+        id: "",
+        name: "Camiseta",
+        category: Category(id: "", category: "Accesorios", image_url: ""),
+        color: ColorClothes(id: "", color: "Amarillo"),
+        imgURL: ""
+    )
+
+    let viewModel = ClosetViewModel()
+
+    return ZStack {
+        Color.gray.opacity(0.2).ignoresSafeArea()
+
+        ClothingCard(garment: sampleGarment)
+            .environmentObject(viewModel)
+    }
+}

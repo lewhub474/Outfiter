@@ -27,11 +27,11 @@ struct AddClothingView: View {
         Category(id: "64ca77d95cf35ef21b7ece5c", category: "Zapatos", image_url: "")
     ]
     
-    let colors: [Color] = [
-        Color(id: "64ca77265cf35ef21b7ece3f", color: "Rojo"),
-        Color(id: "64ca772f5cf35ef21b7ece41", color: "Amarillo"),
-        Color(id: "64ca77335cf35ef21b7ece43", color: "Azul"),
-        Color(id: "64ca773b5cf35ef21b7ece45", color: "Violeta"),
+    let colors: [ColorClothes] = [
+        ColorClothes(id: "64ca77265cf35ef21b7ece3f", color: "Rojo"),
+        ColorClothes(id: "64ca772f5cf35ef21b7ece41", color: "Amarillo"),
+        ColorClothes(id: "64ca77335cf35ef21b7ece43", color: "Azul"),
+        ColorClothes(id: "64ca773b5cf35ef21b7ece45", color: "Violeta"),
     ]
     
     var body: some View {

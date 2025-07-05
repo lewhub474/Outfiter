@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Color: Codable {
+struct ColorClothes: Codable {
     let id: String?
     let color: String?
 }

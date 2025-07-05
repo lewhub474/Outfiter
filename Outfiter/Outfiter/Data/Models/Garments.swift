@@ -11,7 +11,7 @@ struct Garments: Codable, Identifiable {
     let id: String?
     let name: String?
     let category: Category?
-    let color: Color?
+    let color: ColorClothes?
     let imgURL: String?
     var clothings: [Clothing]? // Agrega esta propiedad
 
