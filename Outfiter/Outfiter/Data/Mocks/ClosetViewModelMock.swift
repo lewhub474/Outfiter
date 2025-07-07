@@ -92,3 +92,39 @@ class ClosetViewModelMock: ClosetViewModel {
 }
 
 
+class ClosetViewModelMock2: ClosetViewModel {
+    init(isLoading: Bool = false) {
+        super.init()
+        self.isLoading = isLoading
+
+        let categories = (1...6).map {
+            Category(id: "\($0)", category: "/", image_url: "https://via.placeholder.com/150")
+        }
+
+        let colors = [
+            ColorClothes(id: "col1", color: "Blanco"),
+            ColorClothes(id: "col2", color: "Azul")
+        ]
+
+        let garments: [Garments] = [
+            Garments(id: "1", name: "Camisa Blanca", category: categories[0], color: colors[0], imgURL: "https://via.placeholder.com/150", clothings: []),
+            Garments(id: "2", name: "Jeans Azul", category: categories[1], color: colors[1], imgURL: "https://via.placeholder.com/150", clothings: []),
+            Garments(id: "3", name: "Chaqueta Blanca", category: categories[2], color: colors[0], imgURL: "https://via.placeholder.com/150", clothings: []),
+            Garments(id: "4", name: "Pantalón Azul", category: categories[3], color: colors[1], imgURL: "https://via.placeholder.com/150", clothings: []),
+            Garments(id: "5", name: "Camiseta Blanca", category: categories[4], color: colors[0], imgURL: "https://via.placeholder.com/150", clothings: []),
+            Garments(id: "6", name: "Falda Azul", category: categories[5], color: colors[1], imgURL: "https://via.placeholder.com/150", clothings: []),
+            Garments(id: "7", name: "Sudadera Blanca", category: categories[0], color: colors[0], imgURL: "https://via.placeholder.com/150", clothings: []),
+            Garments(id: "8", name: "Short Azul", category: categories[1], color: colors[1], imgURL: "https://via.placeholder.com/150", clothings: []),
+            Garments(id: "9", name: "Blazer Blanco", category: categories[2], color: colors[0], imgURL: "https://via.placeholder.com/150", clothings: []),
+            Garments(id: "10", name: "Vestido Azul", category: categories[3], color: colors[1], imgURL: "https://via.placeholder.com/150", clothings: []),
+            Garments(id: "11", name: "Top Blanco", category: categories[4], color: colors[0], imgURL: "https://via.placeholder.com/150", clothings: []),
+            Garments(id: "12", name: "Leggings Azul", category: categories[5], color: colors[1], imgURL: "https://via.placeholder.com/150", clothings: [])
+        ]
+
+        self.datosModelo = garments
+    }
+
+    override func getPosts() async {
+        // No hacer nada para evitar llamadas reales en el preview
+    }
+}

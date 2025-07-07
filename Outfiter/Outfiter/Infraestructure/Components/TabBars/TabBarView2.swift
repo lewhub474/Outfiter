@@ -36,7 +36,7 @@ struct TabBarButton2: View {
             selectedTab = index
         }) {
             Image(systemName: icon)
-                .font(.title2)
+                .font(.title3)
                 .foregroundColor(selectedTab == index ? .orange : .white)
                 .frame(maxWidth: .infinity)
         }

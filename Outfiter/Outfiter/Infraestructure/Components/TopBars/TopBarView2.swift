@@ -35,7 +35,7 @@ struct TopBarView2: View {
                         .font(.title2)
                         .foregroundColor(.white)
                         .padding(8)
-//                        .background(Color.white.opacity(0.1))
+                    //                        .background(Color.white.opacity(0.1))
                         .clipShape(Circle())
                 }
             }

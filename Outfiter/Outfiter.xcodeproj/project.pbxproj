@@ -27,6 +27,10 @@
 		807774772E198D6C00970407 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807774762E198D6900970407 /* ProfileView.swift */; };
 		807774792E198E8000970407 /* Recycling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807774782E198E7A00970407 /* Recycling.swift */; };
 		8077747C2E198F0800970407 /* ClosetViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8077747B2E198F0700970407 /* ClosetViewModelMock.swift */; };
+		809D2D8B2E1BC1C400C47DF9 /* CollapsableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D2D8A2E1BC1BE00C47DF9 /* CollapsableHeader.swift */; };
+		809D2D8E2E1C681800C47DF9 /* HeaderState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D2D8D2E1C681400C47DF9 /* HeaderState.swift */; };
+		809D2D902E1C69DE00C47DF9 /* ScrollOffsetPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D2D8F2E1C69DD00C47DF9 /* ScrollOffsetPreferenceKey.swift */; };
+		809D2D932E1C6A3900C47DF9 /* CollapsableHeader+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D2D922E1C6A2B00C47DF9 /* CollapsableHeader+View.swift */; };
 		80D4FC652E0B413100FC410E /* TopBarView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4FC642E0B412900FC410E /* TopBarView2.swift */; };
 		80D4FC682E0D130E00FC410E /* TopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4FC672E0D130C00FC410E /* TopBarView.swift */; };
 		80D4FC6B2E0D134C00FC410E /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4FC6A2E0D134800FC410E /* TabBarView.swift */; };
@@ -76,6 +80,10 @@
 		807774762E198D6900970407 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		807774782E198E7A00970407 /* Recycling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recycling.swift; sourceTree = "<group>"; };
 		8077747B2E198F0700970407 /* ClosetViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosetViewModelMock.swift; sourceTree = "<group>"; };
+		809D2D8A2E1BC1BE00C47DF9 /* CollapsableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsableHeader.swift; sourceTree = "<group>"; };
+		809D2D8D2E1C681400C47DF9 /* HeaderState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderState.swift; sourceTree = "<group>"; };
+		809D2D8F2E1C69DD00C47DF9 /* ScrollOffsetPreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollOffsetPreferenceKey.swift; sourceTree = "<group>"; };
+		809D2D922E1C6A2B00C47DF9 /* CollapsableHeader+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollapsableHeader+View.swift"; sourceTree = "<group>"; };
 		80A7D3FF2D71A8A400B64035 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		80D4FC642E0B412900FC410E /* TopBarView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarView2.swift; sourceTree = "<group>"; };
 		80D4FC672E0D130C00FC410E /* TopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarView.swift; sourceTree = "<group>"; };
@@ -174,6 +182,7 @@
 		802317262DEEE0BC00B279B8 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				809D2D8C2E1C67EA00C47DF9 /* CollapsableHeader */,
 				80D4FC692E0D133300FC410E /* TabBars */,
 				80D4FC662E0D12EA00FC410E /* TopBars */,
 				80D4FC6E2E0D13A300FC410E /* SideMenuView.swift */,
@@ -284,6 +293,32 @@
 			path = FreshDrop;
 			sourceTree = "<group>";
 		};
+		809D2D8C2E1C67EA00C47DF9 /* CollapsableHeader */ = {
+			isa = PBXGroup;
+			children = (
+				809D2D8A2E1BC1BE00C47DF9 /* CollapsableHeader.swift */,
+				809D2D8F2E1C69DD00C47DF9 /* ScrollOffsetPreferenceKey.swift */,
+				809D2D8D2E1C681400C47DF9 /* HeaderState.swift */,
+			);
+			path = CollapsableHeader;
+			sourceTree = "<group>";
+		};
+		809D2D912E1C6A1400C47DF9 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				809D2D942E1C6A4400C47DF9 /* Extensions */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		809D2D942E1C6A4400C47DF9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				809D2D922E1C6A2B00C47DF9 /* CollapsableHeader+View.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		80D4FC662E0D12EA00FC410E /* TopBars */ = {
 			isa = PBXGroup;
 			children = (
@@ -365,6 +400,7 @@
 				802317282DEEE18B00B279B8 /* Data */,
 				802317272DEEE0E000B279B8 /* Domain */,
 				80D5D2E62D686768004C672A /* ViewModels */,
+				809D2D912E1C6A1400C47DF9 /* Utils */,
 				E2A9EC082A958C91005B5502 /* Assets.xcassets */,
 				E2A9EC0A2A958C91005B5502 /* Preview Content */,
 			);
@@ -452,6 +488,7 @@
 			files = (
 				80D5D3012D686DDE004C672A /* OutfitViewModel.swift in Sources */,
 				80D5D2F32D686A5B004C672A /* NetworkingProviderPost.swift in Sources */,
+				809D2D8B2E1BC1C400C47DF9 /* CollapsableHeader.swift in Sources */,
 				8023172C2DEEECAB00B279B8 /* ClothingList.swift in Sources */,
 				80D4FC6F2E0D13A700FC410E /* SideMenuView.swift in Sources */,
 				80F92AE82E14F6280036A022 /* StorieItems.swift in Sources */,
@@ -461,6 +498,7 @@
 				80D5D2FF2D686CDA004C672A /* DatabaseOutfits.swift in Sources */,
 				807774742E198CCE00970407 /* GIFView.swift in Sources */,
 				E2A9EC072A958C8F005B5502 /* ClosetView.swift in Sources */,
+				809D2D932E1C6A3900C47DF9 /* CollapsableHeader+View.swift in Sources */,
 				8012291F2D6C368C00C7A410 /* DeleteOutfitUseCase.swift in Sources */,
 				80D4FC682E0D130E00FC410E /* TopBarView.swift in Sources */,
 				80D4FC6D2E0D135B00FC410E /* TabBarView2.swift in Sources */,
@@ -477,6 +515,7 @@
 				80D5D2EF2D686A0A004C672A /* Clothings.swift in Sources */,
 				801229232D6C3ADB00C7A410 /* ClothingForOutfitsView.swift in Sources */,
 				80502E002DF6AF9600036D1B /* CustomTextField.swift in Sources */,
+				809D2D8E2E1C681800C47DF9 /* HeaderState.swift in Sources */,
 				801229212D6C369C00C7A410 /* DeleteOutfitUseCaseProtocol.swift in Sources */,
 				801E93332D69A83F00533D3D /* CreateOutfitUseCase.swift in Sources */,
 				80D5D2FD2D686CA2004C672A /* OutfitDetailView.swift in Sources */,
@@ -484,6 +523,7 @@
 				80E11EDD2E048FAF002392F0 /* ClothingCard2.swift in Sources */,
 				8023172A2DEEEC6000B279B8 /* ClothingCard.swift in Sources */,
 				80D5D2E82D68681F004C672A /* AddClothingView.swift in Sources */,
+				809D2D902E1C69DE00C47DF9 /* ScrollOffsetPreferenceKey.swift in Sources */,
 				80F82AD02E03F38000CEB59C /* ClosetCompositionView.swift in Sources */,
 				806760512DF34D68000A7049 /* DashboardView.swift in Sources */,
 				8012291C2D6C364E00C7A410 /* GetOutfitsUseCase.swift in Sources */,

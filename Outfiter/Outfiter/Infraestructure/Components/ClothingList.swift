@@ -78,3 +78,5 @@ struct ClothingListView: View {
             .environmentObject(viewModel) // Necesario para ClothingCard2
     }
 }
+
+
