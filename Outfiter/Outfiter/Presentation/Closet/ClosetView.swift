@@ -94,20 +94,20 @@ struct ClosetView: View {
         .sheet(isPresented: $showOutfits) {
             ViewerOutfits()
         }
-        .sheet(isPresented: $showAddClothingWithImage) {
-            AddClothingUploadImage(
-                name: $name,
-                selectedCategory: $selectedCategory,
-                selectedColor: $selectedColor
-            )
-            .onDisappear {
-                Task {
-                    await viewModel.getPosts()
-                }
-            }
-        }
-        .environmentObject(viewModel)
-        .ignoresSafeArea(.keyboard)
+//        .sheet(isPresented: $showAddClothingWithImage) {
+//            AddClothingUploadImage(
+//                name: $name,
+//                selectedCategory: $selectedCategory,
+//                selectedColor: $selectedColor
+//            )
+//            .onDisappear {
+//                Task {
+//                    await viewModel.getPosts()
+//                }
+//            }
+//        }
+//        .environmentObject(viewModel)
+//        .ignoresSafeArea(.keyboard)
     }
 
     // MARK: - Header View

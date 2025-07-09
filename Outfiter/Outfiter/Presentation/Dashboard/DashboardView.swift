@@ -43,7 +43,15 @@ struct DashboardView: View {
             viewModel: viewModel,
             outfits: viewModel.datosModelo
         )
-        case 2: AddClothingUploadImage(name: $name, selectedCategory: $selectedCategory, selectedColor: $selectedColor)
+        case 2:
+            AddClothingUploadImage(
+                name: $name,
+                selectedCategory: $selectedCategory,
+                selectedColor: $selectedColor,
+                selectedTab: $selectedTab // 👈 pásalo
+            )
+
+//        case 2: AddClothingUploadImage(name: $name, selectedCategory: $selectedCategory, selectedColor: $selectedColor)
                 
         case 3: ViewerOutfits()
         case 4: ClosetCompositionView()

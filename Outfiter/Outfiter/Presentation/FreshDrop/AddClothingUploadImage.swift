@@ -7,98 +7,363 @@
 
 import SwiftUI
 
+//struct AddClothingUploadImage: View {
+//    
+//    @Binding var name: String
+//    @Binding var selectedCategory: String
+//    @Binding var selectedColor: String
+//    @StateObject private var viewModel = AddClothingWithImageViewModel()
+//    @Environment(\.presentationMode) var presentationMode
+//    
+//    @State private var selectedImage: UIImage?
+//    @State private var showImagePicker = false
+//    
+//    @State private var showSourceTypeActionSheet = false
+//    @State private var imageSourceType: UIImagePickerController.SourceType = .photoLibrary
+//
+//
+//    var body: some View {
+//        VStack {
+//            Text("Suma al Closet con Imagen")
+//                .font(.title)
+//                .fontWeight(.bold)
+//                .padding(.top, 20)
+//
+//            Form {
+//                TextField("Nombre", text: $name)
+//                
+//                Picker("Categoría", selection: $selectedCategory) {
+//                    ForEach(viewModel.categories, id: \.id) { category in
+//                        Text(category.category ?? "Desconocido").tag(category.id ?? "")
+//                    }
+//                }
+//                
+//                Picker("Color", selection: $selectedColor) {
+//                    ForEach(viewModel.colors, id: \.id) { color in
+//                        Text(color.color ?? "Desconocido").tag(color.id ?? "")
+//                    }
+//                }
+//                
+//                Button("Seleccionar Imagen") {
+//                    showSourceTypeActionSheet = true
+//                }
+//                .actionSheet(isPresented: $showSourceTypeActionSheet) {
+//                    ActionSheet(title: Text("Selecciona el origen de la imagen"), buttons: [
+//                        .default(Text("Galería")) {
+//                            imageSourceType = .photoLibrary
+//                            showImagePicker = true
+//                        },
+//                        .default(Text("Cámara")) {
+//                            imageSourceType = .camera
+//                            showImagePicker = true
+//                        },
+//                        .cancel()
+//                    ])
+//                }
+//
+////                Button("Seleccionar Imagen") {
+////                    showImagePicker = true
+////                }
+////                
+////                if let image = selectedImage {
+////                    Image(uiImage: image)
+////                        .resizable()
+////                        .scaledToFit()
+////                        .frame(height: 150)
+////                        .cornerRadius(10)
+////                }
+//            }
+//
+//            Button(action: {
+//                viewModel.addClothingWithImage(name: name,
+//                                               categoryId: selectedCategory,
+//                                               colorId: selectedColor,
+//                                               image: selectedImage) {
+//                    presentationMode.wrappedValue.dismiss()
+//                }
+//            }) {
+//                Text("Añadir Prenda")
+//                    .frame(width: 200, height: 40)
+//                    .background(.black)
+//                    .foregroundColor(.white)
+//                    .cornerRadius(10)
+//            }
+//            .padding()
+//        }.sheet(isPresented: $showImagePicker) {
+//            ImagePicker(image: $selectedImage, sourceType: imageSourceType)
+//        }
+//
+////        .sheet(isPresented: $showImagePicker) {
+////            ImagePicker(image: $selectedImage)
+////        }
+//    }
+//}
+
+import SwiftUI
+
+import SwiftUI
+
 struct AddClothingUploadImage: View {
-    
-    @Binding var name: String
-    @Binding var selectedCategory: String
-    @Binding var selectedColor: String
+      @Binding var name: String
+      @Binding var selectedCategory: String
+      @Binding var selectedColor: String
+      @Binding var selectedTab: Int // 👈 aquí
     @StateObject private var viewModel = AddClothingWithImageViewModel()
     @Environment(\.presentationMode) var presentationMode
-    
+
     @State private var selectedImage: UIImage?
     @State private var showImagePicker = false
-    
     @State private var showSourceTypeActionSheet = false
     @State private var imageSourceType: UIImagePickerController.SourceType = .photoLibrary
+    @State private var showSuccessAlert = false
 
 
     var body: some View {
-        VStack {
-            Text("Suma al Closet con Imagen")
-                .font(.title)
-                .fontWeight(.bold)
-                .padding(.top, 20)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                Text("Suma al Closet con Imagen")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .padding(.top, 20)
 
-            Form {
-                TextField("Nombre", text: $name)
+                // Imagen seleccionada
+                // Imagen con TextField superpuesto
                 
-                Picker("Categoría", selection: $selectedCategory) {
-                    ForEach(viewModel.categories, id: \.id) { category in
-                        Text(category.category ?? "Desconocido").tag(category.id ?? "")
+                //MARK: AQUI
+                Text("Imagen de la prenda")
+                    .foregroundColor(.white)
+                    .font(.headline)
+                HStack{
+                    Spacer()
+                    ZStack(alignment: .bottom) {
+                        if let image = selectedImage {
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 180, height: 240)
+                                .clipped()
+                                .cornerRadius(10)
+                        } else {
+                            Rectangle()
+                                .fill(Color.gray.opacity(0.2))
+                                .frame(width: 180, height: 240)
+                                .overlay(
+                                    Image(systemName: "photo")
+                                        .font(.largeTitle)
+                                        .foregroundColor(.gray)
+                                )
+                                .cornerRadius(10)
+                        }
+                        
+                        // TextField superpuesto como en ClothingCard
+                        ClothingNameEditor(name: $name)
+
                     }
+                 Spacer()
                 }
-                
-                Picker("Color", selection: $selectedColor) {
-                    ForEach(viewModel.colors, id: \.id) { color in
-                        Text(color.color ?? "Desconocido").tag(color.id ?? "")
-                    }
-                }
-                
+                .cornerRadius(10)
+
+
+                // Botón seleccionar imagen
                 Button("Seleccionar Imagen") {
                     showSourceTypeActionSheet = true
                 }
-                .actionSheet(isPresented: $showSourceTypeActionSheet) {
-                    ActionSheet(title: Text("Selecciona el origen de la imagen"), buttons: [
-                        .default(Text("Galería")) {
-                            imageSourceType = .photoLibrary
-                            showImagePicker = true
-                        },
-                        .default(Text("Cámara")) {
-                            imageSourceType = .camera
-                            showImagePicker = true
-                        },
-                        .cancel()
-                    ])
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color.orange)
+                .foregroundColor(.white)
+                .cornerRadius(8)
+
+                // Nombre
+                Text("Nombre de la prenda")
+                    .font(.headline)
+                    .foregroundColor(.white)
+
+                TextField("Nombre", text: $name)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .foregroundColor(.white)
+                    .accentColor(.orange)
+
+                // Categoría
+                Text("Categoría de la prenda")
+                    .font(.headline)
+                    .foregroundColor(.white)
+
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(viewModel.categories, id: \.id) { category in
+                            VStack {
+                                Image(systemName: "tshirt")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                                    .padding()
+                                    .background(
+                                        selectedCategory == (category.id ?? "") ?
+                                        Color.orange.opacity(0.8) :
+                                        Color.gray.opacity(0.3)
+                                    )
+                                    .clipShape(Circle())
+                                    .onTapGesture {
+                                        selectedCategory = category.id ?? ""
+                                    }
+
+                                Text(category.category ?? "Desconocido")
+                                    .font(.caption)
+                                    .foregroundColor(.white)
+                            }
+                        }
+                    }
                 }
 
-//                Button("Seleccionar Imagen") {
-//                    showImagePicker = true
-//                }
-//                
-//                if let image = selectedImage {
-//                    Image(uiImage: image)
-//                        .resizable()
-//                        .scaledToFit()
-//                        .frame(height: 150)
+                // Color
+                Text("Color de la prenda")
+                    .font(.headline)
+                    .foregroundColor(.white)
+
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(viewModel.colors, id: \.id) { color in
+                            VStack {
+                                Image(systemName: "circle.fill")
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
+                                    .foregroundColor(.gray)
+                                    .padding()
+                                    .background(
+                                        selectedColor == (color.id ?? "") ?
+                                        Color.orange.opacity(0.8) :
+                                        Color.gray.opacity(0.3)
+                                    )
+                                    .clipShape(Circle())
+                                    .onTapGesture {
+                                        selectedColor = color.id ?? ""
+                                    }
+
+                                Text(color.color ?? "Desconocido")
+                                    .font(.caption)
+                                    .foregroundColor(.white)
+                            }
+                        }
+                    }
+                }
+
+                // Botón añadir Prenda
+//                Button(action: {
+//                    viewModel.addClothingWithImage(name: name,
+//                                                   categoryId: selectedCategory,
+//                                                   colorId: selectedColor,
+//                                                   image: selectedImage) {
+//                        presentationMode.wrappedValue.dismiss()
+//                    }
+//                }) {
+//                    Text("Añadir Prenda")
+//                        .frame(maxWidth: .infinity)
+//                        .padding()
+//                        .background(Color.orange)
+//                        .foregroundColor(.white)
 //                        .cornerRadius(10)
 //                }
-            }
+                
+                Button(action: {
+                    viewModel.addClothingWithImage(name: name,
+                                                   categoryId: selectedCategory,
+                                                   colorId: selectedColor,
+                                                   image: selectedImage) {
+                        showSuccessAlert = true
+                       
 
-            Button(action: {
-                viewModel.addClothingWithImage(name: name,
-                                               categoryId: selectedCategory,
-                                               colorId: selectedColor,
-                                               image: selectedImage) {
-                    presentationMode.wrappedValue.dismiss()
+                    }
+                }) {
+                    Text("Añadir Prenda")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.orange)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                 }
-            }) {
-                Text("Añadir Prenda")
-                    .frame(width: 200, height: 40)
-                    .background(.black)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+
+
+                Spacer()
             }
             .padding()
-        }.sheet(isPresented: $showImagePicker) {
+        }
+        .onTapGesture {
+            hideKeyboard()
+        }
+        .background(Color.black)
+        .ignoresSafeArea(.keyboard, edges: .bottom)
+        .sheet(isPresented: $showImagePicker) {
             ImagePicker(image: $selectedImage, sourceType: imageSourceType)
         }
+        .actionSheet(isPresented: $showSourceTypeActionSheet) {
+            ActionSheet(title: Text("Selecciona el origen de la imagen"), buttons: [
+                .default(Text("Galería")) {
+                    imageSourceType = .photoLibrary
+                    showImagePicker = true
+                },
+                .default(Text("Cámara")) {
+                    imageSourceType = .camera
+                    showImagePicker = true
+                },
+                .cancel()
+            ])
+        }
+        .alert(isPresented: $showSuccessAlert) {
+            Alert(
+                title: Text("Prenda añadida"),
+                message: Text("Se agregó exitosamente al closet."),
+                dismissButton: .default(Text("OK")) {
+                    selectedTab = 0 // 👈 Navega después de cerrar el popup
+                }
+            )
+        }
 
-//        .sheet(isPresented: $showImagePicker) {
-//            ImagePicker(image: $selectedImage)
-//        }
+
     }
 }
 
+import SwiftUI
+
+#if canImport(UIKit)
+extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
+                                        to: nil, from: nil, for: nil)
+    }
+}
+#endif
+
+#Preview {
+    PreviewWrapper()
+}
+
+private struct PreviewWrapper: View {
+    @State private var name = "Camiseta Tommy Hilfiger"
+    @State private var selectedCategory = "1"
+    @State private var selectedColor = "1"
+    @State private var selectedTab = 2
+
+    var body: some View {
+        AddClothingUploadImage(
+            name: $name,
+            selectedCategory: $selectedCategory,
+            selectedColor: $selectedColor,
+            selectedTab: $selectedTab
+        )
+    }
+}
+
+
+//#Preview {
+//    @State var name = "Camiseta Tommy Hilferd"
+//    @State var selectedCategory = "1"
+//    @State var selectedColor = "1"
+//
+//    AddClothingUploadImage(name: $name,
+//                                   selectedCategory: $selectedCategory,
+//                           selectedColor: $selectedColor, selectedTab: <#Binding<Int>#>)
+//}
 
 import Foundation
 import SwiftUI
@@ -410,5 +675,81 @@ extension UIImage {
         guard let cgImage = self.cgImage?.cropping(to: cropRect) else { return nil }
 
         return UIImage(cgImage: cgImage, scale: self.scale, orientation: self.imageOrientation)
+    }
+}
+
+
+//struct ClothingNameEditor: View {
+//    @Binding var name: String
+//    let width: CGFloat
+//    let height: CGFloat
+//
+//    private let maxLines = 3
+//
+//    var body: some View {
+//        ZStack(alignment: .topLeading) {
+//            if name.isEmpty {
+//                Text("Nombra tu prenda aquí")
+//                    .foregroundColor(Color.white.opacity(0.6))
+//                    .padding(.horizontal, 8)
+//                    .padding(.top, 12)
+//            }
+//
+//            TextEditor(text: $name)
+//                .frame(width: width, height: height)
+//                .padding(4)
+//                .foregroundColor(.white)
+//                .font(.headline)
+//                .background(
+//                    LinearGradient(
+//                        gradient: Gradient(colors: [Color.black.opacity(0.7), Color.clear]),
+//                        startPoint: .bottom,
+//                        endPoint: .top
+//                    )
+//                )
+//                .cornerRadius(10)
+//                .scrollContentBackground(.hidden)
+//                .onChange(of: name) { newValue in
+//                    let lines = newValue.components(separatedBy: "\n")
+//                    if lines.count > maxLines {
+//                        name = lines.prefix(maxLines).joined(separator: "\n")
+//                    }
+//                }
+//        }
+//        .frame(width: width, height: height)
+//    }
+//}
+
+struct ClothingNameEditor: View {
+    @Binding var name: String
+
+    var body: some View {
+        ZStack(alignment: .bottomLeading) {
+            if name.isEmpty {
+                Text("Nombra tu prenda aquí")
+                    .foregroundColor(Color.white.opacity(0.6))
+                    .padding(.horizontal, 8)
+                    .padding(.bottom, 10)
+            }
+
+            TextEditor(text: $name)
+                .frame(width: 180, height: 60)
+                .padding(4)
+                .background(
+                    LinearGradient(
+                        gradient: Gradient(colors: [Color.black.opacity(0.7), Color.clear]),
+                        startPoint: .bottom,
+                        endPoint: .top
+                    )
+                )
+                .foregroundColor(.white)
+                .font(.headline)
+                .lineLimit(3)
+                .multilineTextAlignment(.leading)
+                .minimumScaleFactor(0.6)
+                .cornerRadius(8)
+                .scrollContentBackground(.hidden)
+        }
+        .frame(width: 180, height: 60)
     }
 }
