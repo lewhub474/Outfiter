@@ -46,27 +46,22 @@ struct CreateOutfitView: View {
                         RoundedRectangle(cornerRadius: 8) // Crea un borde alrededor
                             .stroke(.black, lineWidth: 1) // Color y grosor del borde
                     ).padding()
-                List {
-                    ForEach(viewModel.datosModelo) { clothing in
-                        let isSelected = selectedClothingIDs.contains(clothing.id ?? "")
-                        HStack {
-                            Text(clothing.name ?? "Nil")
-                            //                        Text(clothing.color?.color ?? "Nil")
-                            Spacer()
-                            Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                                .foregroundColor(isSelected ? .green : .gray)
-                        }
-                        .onTapGesture {
-                            if isSelected {
-                                // Si ya está seleccionada, deselecciónala
-                                selectedClothingIDs.removeAll { $0 == clothing.id }
-                            } else {
-                                // Si no está seleccionada, selecciónala
-                                selectedClothingIDs.append(clothing.id ?? "")
+                    ScrollView {
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
+                            ForEach(viewModel.datosModelo) { clothing in
+                                let isSelected = selectedClothingIDs.contains(clothing.id ?? "")
+                                SelectableClothingCard(garment: clothing, isSelected: isSelected) {
+                                    if isSelected {
+                                        selectedClothingIDs.removeAll { $0 == clothing.id }
+                                    } else {
+                                        selectedClothingIDs.append(clothing.id ?? "")
+                                    }
+                                }
                             }
                         }
+                        .padding(.horizontal)
                     }
-                }
+
                 
                 
                 Button(action: {
@@ -153,3 +148,79 @@ struct CreateOutfitView: View {
         }
     }
 }
+
+
+import SwiftUI
+
+struct SelectableClothingCard: View {
+    let garment: Garments
+    let isSelected: Bool
+    let onTap: () -> Void
+
+    var body: some View {
+        ZStack(alignment: .topTrailing) {
+            AsyncImage(url: URL(string: garment.imgURL ?? "")) { phase in
+                switch phase {
+                case .success(let image):
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 160, height: 200)
+                        .clipped()
+                default:
+                    Rectangle()
+                        .fill(Color.gray.opacity(0.3))
+                        .frame(width: 160, height: 200)
+                }
+            }
+
+            // Checkbox sobre la imagen
+            Button(action: {
+                onTap()
+            }) {
+                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                    .foregroundColor(isSelected ? .green : .white)
+                    .font(.title2)
+                    .padding(8)
+                    .background(Circle().fill(Color.black.opacity(0.6)))
+            }
+            .padding(6)
+
+            // Nombre en la parte inferior
+            VStack {
+                Spacer()
+                Text(garment.name ?? "Sin nombre")
+                    .font(.caption)
+                    .bold()
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 8)
+                    .padding(.bottom, 6)
+                    .background(
+                        LinearGradient(
+                            gradient: Gradient(colors: [Color.black.opacity(0.7), .clear]),
+                            startPoint: .bottom,
+                            endPoint: .top
+                        )
+                    )
+            }
+        }
+        .frame(width: 160, height: 200)
+        .cornerRadius(10)
+        .shadow(radius: 2)
+    }
+}
+
+//#Preview {
+//    SelectableClothingCard(
+//        garment: Garments(
+//            id: "1",
+//            name: "Camiseta blanca",
+//            category: nil,
+//            color: nil,
+//            imgURL: "https://via.placeholder.com/200x300"
+//        ),
+//        isSelected: true,
+//        onTap: {}
+//    )
+//}

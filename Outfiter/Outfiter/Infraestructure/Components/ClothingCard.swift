@@ -92,3 +92,5 @@ struct ClothingCard: View {
             .environmentObject(viewModel)
     }
 }
+
+
