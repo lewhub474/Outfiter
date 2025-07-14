@@ -443,3 +443,439 @@
 //        .environmentObject(viewModel)
 //    }
 //}
+
+
+//import Foundation
+//import SwiftUI
+//
+//final class CreateOutfitViewModel: ObservableObject {
+//    @Published var selectedClothingIDs: [String] = []
+//    @Published var outfitName: String = ""
+//    @Published var showSuccessPopup: Bool = false
+//    @Published var showValidationAlert: Bool = false
+//    @Published var validationMessage: String = ""
+//
+//    let postProvider = NetworkingProviderOutfit()
+//
+//    func enviarOutfit(viewModel: ClosetViewModel, completion: @escaping () -> Void) {
+//        guard !selectedClothingIDs.isEmpty else {
+//            validationMessage = "Debes seleccionar al menos una prenda."
+//            showValidationAlert = true
+//            return
+//        }
+//
+//        guard !outfitName.isEmpty else {
+//            validationMessage = "Debes ingresar un nombre para el outfit."
+//            showValidationAlert = true
+//            return
+//        }
+//
+//        let validIDs = viewModel.datosModelo.compactMap { $0.id }
+//        let invalidIDs = selectedClothingIDs.filter { !validIDs.contains($0) }
+//
+//        if !invalidIDs.isEmpty {
+//            validationMessage = "IDs de prendas inválidos: \(invalidIDs.joined(separator: ", "))"
+//            showValidationAlert = true
+//            return
+//        }
+//
+//        let body: [String: Any] = [
+//            "name": outfitName,
+//            "clothings": selectedClothingIDs
+//        ]
+//
+//        Task {
+//            if let response = await postProvider.enviarPost(body: body) {
+//                print("Outfit creado: \(response)")
+//                selectedClothingIDs.removeAll()
+//                outfitName = ""
+//                showSuccessPopup = true
+//                completion()
+//            } else {
+//                validationMessage = "Error al crear el outfit."
+//                showValidationAlert = true
+//            }
+//        }
+//    }
+//}
+//
+//struct CreateOutfitView: View {
+//    @Binding var selectedTab: Int
+//    @ObservedObject var viewModel: ClosetViewModel
+//    @StateObject private var outfitViewModel = CreateOutfitViewModel()
+//    @Environment(\.presentationMode) var presentationMode
+//
+//    var body: some View {
+//        NavigationView {
+//            ZStack {
+//                VStack {
+//                    Text("Dressing Room")
+//                        .font(.title)
+//                        .bold()
+//                        .padding(.top, 20)
+//
+//                    Text("Selecciona las prendas para tu outfit:")
+//                        .font(.title3)
+//                        .foregroundColor(.gray)
+//
+//                    TextField("Nombre del outfit", text: $outfitViewModel.outfitName)
+//                        .padding(10)
+//                        .background(.white)
+//                        .cornerRadius(8)
+//                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(.black, lineWidth: 1))
+//                        .padding()
+//
+//                    ScrollView {
+//                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
+//                            ForEach(viewModel.datosModelo) { clothing in
+//                                let isSelected = outfitViewModel.selectedClothingIDs.contains(clothing.id ?? "")
+//                                SelectableClothingCard(garment: clothing, isSelected: isSelected) {
+//                                    if isSelected {
+//                                        outfitViewModel.selectedClothingIDs.removeAll { $0 == clothing.id }
+//                                    } else {
+//                                        outfitViewModel.selectedClothingIDs.append(clothing.id ?? "")
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        .padding(.horizontal)
+//                    }
+//
+//                    Button("Crear Outfit") {
+//                        outfitViewModel.enviarOutfit(viewModel: viewModel) {
+//                            presentationMode.wrappedValue.dismiss()
+//                        }
+//                    }
+//                    .frame(width: 200, height: 40)
+//                    .background(.black)
+//                    .foregroundColor(.white)
+//                    .cornerRadius(10)
+//                    .padding()
+//
+//                }
+//                .padding(.bottom, 40)
+//            }
+//        }
+//        .alert(isPresented: $outfitViewModel.showSuccessPopup) {
+//            Alert(
+//                title: Text("Outfit creado"),
+//                message: Text("Tu outfit ha sido creado exitosamente."),
+//                dismissButton: .default(Text("OK")) {
+//                    selectedTab = 3
+//                }
+//            )
+//        }
+//        .alert(isPresented: $outfitViewModel.showValidationAlert) {
+//            Alert(
+//                title: Text("Validación"),
+//                message: Text(outfitViewModel.validationMessage),
+//                dismissButton: .default(Text("OK"))
+//            )
+//        }
+//    }
+//}
+//
+//
+//#Preview {
+//    struct PreviewWrapper: View {
+//        @State var selectedTab: Int = 1
+//
+//        var body: some View {
+//            CreateOutfitView(
+//                selectedTab: $selectedTab,
+//                viewModel: ClosetViewModelMock2()
+//            )
+//        }
+//    }
+//
+//    return PreviewWrapper()
+//}
+//
+// MARK: CreateOutfitView de antes sin viewmodel
+
+//struct CreateOutfitView: View {
+//    @State private var showSuccessPopup = false
+//    @Binding var selectedTab: Int // 👈 Para cambiar la vista desde DashboardView
+//    @Binding var selectedClothingIDs: [String]
+//    @Binding var outfitName: String
+//    @State private var outfitResponse: String?
+//    @ObservedObject var viewModel: ClosetViewModel
+//    let outfits: [Garments]
+//    @StateObject var postProvider = NetworkingProviderOutfit()
+//    @Environment(\.presentationMode) var presentationMode
+//
+//
+//    var body: some View {
+//        NavigationView {
+//            ZStack {
+//                VStack {
+//                Text("Dressing Room")
+//                    .font(.title)
+//                    .bold()
+//                    .padding(.top, 20)
+//
+//                Text("Selecciona las prendas para tu outfit:")
+//                    .font(.title3)
+//                    .foregroundColor(.gray)
+//
+//                TextField("Nombre del outfit", text: $outfitName)
+//                    .padding(10) // Espaciado interno
+//                    .background(.white) // Fondo blanco para que el campo de texto resalte
+//                    .cornerRadius(8) // Bordes redondeados
+//                    .overlay(
+//                        RoundedRectangle(cornerRadius: 8) // Crea un borde alrededor
+//                            .stroke(.black, lineWidth: 1) // Color y grosor del borde
+//                    ).padding()
+//                    ScrollView {
+//                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
+//                            ForEach(viewModel.datosModelo) { clothing in
+//                                let isSelected = selectedClothingIDs.contains(clothing.id ?? "")
+//                                SelectableClothingCard(garment: clothing, isSelected: isSelected) {
+//                                    if isSelected {
+//                                        selectedClothingIDs.removeAll { $0 == clothing.id }
+//                                    } else {
+//                                        selectedClothingIDs.append(clothing.id ?? "")
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        .padding(.horizontal)
+//                    }
+//
+//
+//
+//                Button(action: {
+//                    enviarOutfit()
+//                    presentationMode.wrappedValue.dismiss()
+//                }) {
+//                    Text("Crear Outfit")
+//                        .frame(width: 200, height: 40)
+//                        .background(.black)
+//                        .foregroundColor(.white)
+//                        .cornerRadius(10)
+//                }
+//                .padding()
+//
+//                }   .padding(.bottom, 40)
+//            }
+//        }.alert(isPresented: $showSuccessPopup) {
+//            Alert(
+//                title: Text("Outfit creado"),
+//                message: Text("Tu outfit ha sido creado exitosamente."),
+//                dismissButton: .default(Text("OK")) {
+//                    selectedTab = 3 // 👈 Navega a ViewerOutfits
+//                }
+//            )
+//        }
+//
+//    }
+//    private func enviarOutfit() {
+//        // Verifica que haya al menos una prenda seleccionada y un nombre de outfit válido
+//        guard !selectedClothingIDs.isEmpty, !outfitName.isEmpty else {
+//            outfitResponse = "Debes seleccionar prendas y proporcionar un nombre."
+//            return
+//        }
+//
+//        // Verifica que todos los IDs seleccionados sean válidos
+//        let invalidIDs = selectedClothingIDs.filter { id in
+//            return !viewModel.datosModelo.contains { clothing in
+//                return clothing.id == id
+//            }
+//        }
+//
+//
+//        if !invalidIDs.isEmpty {
+//            outfitResponse = "IDs de prendas inválidos: \(invalidIDs.joined(separator: ", "))"
+//            return
+//        }
+//
+//
+//        let selectedClothingDetails: [[String: Any]] = viewModel.datosModelo
+//                .filter { selectedClothingIDs.contains($0.id ?? "") }
+//                .map { clothing in
+//                    var clothingDetails = [String: Any]()
+//                    clothingDetails["id"] = clothing.id
+//                    clothingDetails["name"] = clothing.name
+//                    clothingDetails["category"] = clothing.category?.category
+//                    clothingDetails["color"] = clothing.color?.color
+//                    return clothingDetails
+//                }
+//        // Los IDs son válidos, procede con la creación del outfit
+//        let body: [String: Any] = [
+//            "name": outfitName,
+//            "clothings": selectedClothingIDs
+//        ]
+//
+//        // Obtenemos los nombres de categorías y colores correspondientes a los IDs seleccionados
+//        let selectedCategoryNames = viewModel.datosModelo
+//            .filter { selectedClothingIDs.contains($0.id ?? "") }
+//            .compactMap { $0.category?.category }
+//
+//        let selectedColorNames = viewModel.datosModelo
+//            .filter { selectedClothingIDs.contains($0.id ?? "") }
+//            .compactMap { $0.color?.color }
+//        let selectedClothingNames = viewModel.datosModelo
+//                .filter { selectedClothingIDs.contains($0.id ?? "") }
+//                .compactMap { $0.name }
+//
+//        print("Nombre del Outfit: \(outfitName)")
+//        print("Nombres de las prendas seleccionadas: \(selectedClothingNames.joined(separator: ", "))")
+//        print("IDs seleccionados de prendas: \(selectedClothingIDs.joined(separator: ", "))")
+//        print("Categorías seleccionadas: \(selectedCategoryNames.joined(separator: ", "))")
+//        print("Colores seleccionados: \(selectedColorNames.joined(separator: ", "))")
+//
+//        Task {
+//            if let response = await postProvider.enviarPost(body: body) {
+//                outfitResponse = response
+//                selectedClothingIDs.removeAll()
+//                outfitName = ""
+//                showSuccessPopup = true // 👈 Mostrar popup
+//            } else {
+//                outfitResponse = "Error al crear el outfit."
+//            }
+//
+//        }
+//    }
+//}
+
+// MARK: SelectableClothingCard con letras mas pequeñas
+
+//struct SelectableClothingCard: View {
+//    let garment: Garments
+//    let isSelected: Bool
+//    let onTap: () -> Void
+//
+//    var body: some View {
+//        ZStack(alignment: .topTrailing) {
+//            ZStack(alignment: .bottom) {
+//                // Imagen principal
+//                AsyncImage(url: URL(string: garment.imgURL ?? "")) { phase in
+//                    switch phase {
+//                    case .success(let image):
+//                        image
+//                            .resizable()
+//                            .scaledToFill()
+//                            .frame(width: 180, height: 240)
+//                            .clipped()
+//                    default:
+//                        Rectangle()
+//                            .fill(Color.gray.opacity(0.3))
+//                            .frame(width: 180, height: 240)
+//                    }
+//                }
+//
+//                // Nombre en la parte inferior
+//                HStack {
+//                    Text(garment.name ?? "Sin nombre")
+//                        .font(.headline)
+//                        .foregroundColor(.white)
+//                        .lineLimit(2)
+//                        .minimumScaleFactor(0.6)
+//                        .multilineTextAlignment(.leading)
+//
+//                    Spacer()
+//                }
+//                .padding(8)
+//                .frame(width: 180)
+//                .background(
+//                    LinearGradient(
+//                        gradient: Gradient(colors: [Color.black.opacity(0.6), .clear]),
+//                        startPoint: .bottom,
+//                        endPoint: .top
+//                    )
+//                    .frame(height: 60),
+//                    alignment: .bottom
+//                )
+//            }
+//
+//            // Checkbox en la esquina superior derecha
+//            Button(action: {
+//                onTap()
+//            }) {
+//                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+//                    .foregroundColor(isSelected ? .green : .white)
+//                    .font(.title2)
+//                    .padding(8)
+//                    .background(Circle().fill(Color.black.opacity(0.6)))
+//            }
+//            .padding(8)
+//        }
+//        .frame(width: 180, height: 240)
+//        .cornerRadius(8)
+//        .shadow(radius: 2)
+//        .clipped()
+//    }
+//}
+
+//struct SelectableClothingCard: View {
+//    let garment: Garments
+//    let isSelected: Bool
+//    let onTap: () -> Void
+//
+//    var body: some View {
+//        ZStack(alignment: .topTrailing) {
+//            AsyncImage(url: URL(string: garment.imgURL ?? "")) { phase in
+//                switch phase {
+//                case .success(let image):
+//                    image
+//                        .resizable()
+//                        .scaledToFill()
+//                        .frame(width: 160, height: 200)
+//                        .clipped()
+//                default:
+//                    Rectangle()
+//                        .fill(Color.gray.opacity(0.3))
+//                        .frame(width: 160, height: 200)
+//                }
+//            }
+//
+//            // Checkbox sobre la imagen
+//            Button(action: {
+//                onTap()
+//            }) {
+//                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+//                    .foregroundColor(isSelected ? .green : .white)
+//                    .font(.title2)
+//                    .padding(8)
+//                    .background(Circle().fill(Color.black.opacity(0.6)))
+//            }
+//            .padding(6)
+//
+//            // Nombre en la parte inferior
+//            VStack {
+//                Spacer()
+//                Text(garment.name ?? "Sin nombre")
+//                    .font(.caption)
+//                    .bold()
+//                    .foregroundColor(.white)
+//                    .frame(maxWidth: .infinity, alignment: .leading)
+//                    .padding(.horizontal, 8)
+//                    .padding(.bottom, 6)
+//                    .background(
+//                        LinearGradient(
+//                            gradient: Gradient(colors: [Color.black.opacity(0.7), .clear]),
+//                            startPoint: .bottom,
+//                            endPoint: .top
+//                        )
+//                    )
+//            }
+//        }
+//        .frame(width: 160, height: 200)
+//        .cornerRadius(10)
+//        .shadow(radius: 2)
+//    }
+//}
+
+//#Preview {
+//    SelectableClothingCard(
+//        garment: Garments(
+//            id: "1",
+//            name: "Camiseta blanca",
+//            category: nil,
+//            color: nil,
+//            imgURL: "https://via.placeholder.com/200x300"
+//        ),
+//        isSelected: true,
+//        onTap: {}
+//    )
+//}

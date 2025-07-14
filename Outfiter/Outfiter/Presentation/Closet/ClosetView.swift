@@ -154,6 +154,7 @@ struct ClosetView: View {
             }, coordinatorSpace: "scrollView")
             .padding(.horizontal, spacing)
             .padding(.top, spacing)
+            .padding(.bottom, 50)
         }
         .background(Color.black)
         .coordinateSpace(name: "scrollView")

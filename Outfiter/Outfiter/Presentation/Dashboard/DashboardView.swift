@@ -37,27 +37,24 @@ struct DashboardView: View {
     func getSelectedView() -> some View {
         switch selectedTab {
         case 0: ClosetView()
-        case 1: CreateOutfitView(
-            selectedClothingIDs: $selectedClothingIDs,
-            outfitName: $outfitName,
-            viewModel: viewModel,
-            outfits: viewModel.datosModelo
+        case 1:CreateOutfitView(
+            selectedTab: $selectedTab,
+            closetViewModel: viewModel // este es el nombre correcto
         )
+
         case 2:
             AddClothingUploadImage(
                 name: $name,
                 selectedCategory: $selectedCategory,
                 selectedColor: $selectedColor,
-                selectedTab: $selectedTab // 👈 pásalo
+                selectedTab: $selectedTab
             )
-
-//        case 2: AddClothingUploadImage(name: $name, selectedCategory: $selectedCategory, selectedColor: $selectedColor)
-                
         case 3: ViewerOutfits()
         case 4: ClosetCompositionView()
         default: ClosetView()
         }
     }
+
 }
 
 

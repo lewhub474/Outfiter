@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		800931262E20D90300B244E4 /* CreateOutfitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800931252E20D8FC00B244E4 /* CreateOutfitViewModel.swift */; };
+		800931292E20D94C00B244E4 /* SelectableClothingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800931282E20D94400B244E4 /* SelectableClothingCard.swift */; };
 		8012291A2D6C363800C7A410 /* GetOutfitsUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801229192D6C363800C7A410 /* GetOutfitsUseCaseProtocol.swift */; };
 		8012291C2D6C364E00C7A410 /* GetOutfitsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8012291B2D6C364E00C7A410 /* GetOutfitsUseCase.swift */; };
 		8012291F2D6C368C00C7A410 /* DeleteOutfitUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8012291E2D6C368C00C7A410 /* DeleteOutfitUseCase.swift */; };
@@ -60,6 +62,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		800931252E20D8FC00B244E4 /* CreateOutfitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOutfitViewModel.swift; sourceTree = "<group>"; };
+		800931282E20D94400B244E4 /* SelectableClothingCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableClothingCard.swift; sourceTree = "<group>"; };
 		801229192D6C363800C7A410 /* GetOutfitsUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOutfitsUseCaseProtocol.swift; sourceTree = "<group>"; };
 		8012291B2D6C364E00C7A410 /* GetOutfitsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOutfitsUseCase.swift; sourceTree = "<group>"; };
 		8012291E2D6C368C00C7A410 /* DeleteOutfitUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteOutfitUseCase.swift; sourceTree = "<group>"; };
@@ -125,6 +129,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		800931272E20D93300B244E4 /* SelectableClothingCard */ = {
+			isa = PBXGroup;
+			children = (
+				800931282E20D94400B244E4 /* SelectableClothingCard.swift */,
+			);
+			path = SelectableClothingCard;
+			sourceTree = "<group>";
+		};
 		801229182D6C361800C7A410 /* GetOutfitsUseCase */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				80D5D2F82D686C43004C672A /* CreateOutfitView.swift */,
+				800931252E20D8FC00B244E4 /* CreateOutfitViewModel.swift */,
 				80D5D2FA2D686C7E004C672A /* ViewerOutfits.swift */,
 			);
 			path = "Dressing Room";
@@ -182,6 +195,7 @@
 		802317262DEEE0BC00B279B8 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				800931272E20D93300B244E4 /* SelectableClothingCard */,
 				809D2D8C2E1C67EA00C47DF9 /* CollapsableHeader */,
 				80D4FC692E0D133300FC410E /* TabBars */,
 				80D4FC662E0D12EA00FC410E /* TopBars */,
@@ -487,6 +501,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80D5D3012D686DDE004C672A /* OutfitViewModel.swift in Sources */,
+				800931262E20D90300B244E4 /* CreateOutfitViewModel.swift in Sources */,
 				80D5D2F32D686A5B004C672A /* NetworkingProviderPost.swift in Sources */,
 				809D2D8B2E1BC1C400C47DF9 /* CollapsableHeader.swift in Sources */,
 				8023172C2DEEECAB00B279B8 /* ClothingList.swift in Sources */,
@@ -500,6 +515,7 @@
 				E2A9EC072A958C8F005B5502 /* ClosetView.swift in Sources */,
 				809D2D932E1C6A3900C47DF9 /* CollapsableHeader+View.swift in Sources */,
 				8012291F2D6C368C00C7A410 /* DeleteOutfitUseCase.swift in Sources */,
+				800931292E20D94C00B244E4 /* SelectableClothingCard.swift in Sources */,
 				80D4FC682E0D130E00FC410E /* TopBarView.swift in Sources */,
 				80D4FC6D2E0D135B00FC410E /* TabBarView2.swift in Sources */,
 				80D4FC652E0B413100FC410E /* TopBarView2.swift in Sources */,
