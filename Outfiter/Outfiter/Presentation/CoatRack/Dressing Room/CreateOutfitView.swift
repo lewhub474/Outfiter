@@ -33,10 +33,47 @@ struct CreateOutfitView: View {
                         .cornerRadius(8)
                         .overlay(RoundedRectangle(cornerRadius: 8).stroke(.black, lineWidth: 1))
                         .padding()
+                    
+                    TextField("Buscar prenda...", text: $viewModel.searchText)
+                        .padding(10)
+                        .background(Color(.systemGray6))
+                        .cornerRadius(8)
+                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(.gray))
+                        .padding(.horizontal)
 
+//                    Picker("Categoría", selection: $viewModel.selectedCategory) {
+//                        ForEach(viewModel.uniqueCategories, id: \.self) { category in
+//                            Text(category).tag(category)
+//                        }
+//                    }
+//                    .pickerStyle(SegmentedPickerStyle())
+//                    .padding(.horizontal)
+
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 12) {
+                            ForEach(viewModel.uniqueCategories, id: \.self) { category in
+                                Button(action: {
+                                    viewModel.selectedCategory = category
+                                }) {
+                                    Text(category)
+                                        .font(.subheadline)
+                                        .padding(.vertical, 8)
+                                        .padding(.horizontal, 16)
+                                        .background(viewModel.selectedCategory == category ? Color.black : Color.gray.opacity(0.3))
+                                        .foregroundColor(viewModel.selectedCategory == category ? .white : .black)
+                                        .cornerRadius(16)
+                                }
+                            }
+                        }
+                        .padding(.horizontal)
+                    }
+
+                    
                     ScrollView {
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
-                            ForEach(closetViewModel.datosModelo) { clothing in
+                            ForEach(viewModel.filteredClothing) { clothing in
+
+//                            ForEach(closetViewModel.datosModelo) { clothing in
                                 let isSelected = viewModel.selectedClothingIDs.contains(clothing.id ?? "")
                                 SelectableClothingCard(garment: clothing, isSelected: isSelected) {
                                     if isSelected {
@@ -75,6 +112,10 @@ struct CreateOutfitView: View {
                 }
             )
         }
+        .onAppear {
+            viewModel.loadClosetData(from: closetViewModel)
+        }
+
 
     }
 }

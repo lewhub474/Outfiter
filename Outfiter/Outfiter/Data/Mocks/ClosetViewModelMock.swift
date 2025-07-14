@@ -97,9 +97,14 @@ class ClosetViewModelMock2: ClosetViewModel {
         super.init()
         self.isLoading = isLoading
 
-        let categories = (1...6).map {
-            Category(id: "\($0)", category: "/", image_url: "https://via.placeholder.com/150")
-        }
+        let categories: [Category] = [
+            Category(id: "1", category: "Camisas", image_url: "https://via.placeholder.com/150"),
+            Category(id: "2", category: "Pantalones", image_url: "https://via.placeholder.com/150"),
+            Category(id: "3", category: "Chaquetas", image_url: "https://via.placeholder.com/150"),
+            Category(id: "4", category: "Faldas", image_url: "https://via.placeholder.com/150"),
+            Category(id: "5", category: "Accesorios", image_url: "https://via.placeholder.com/150"),
+            Category(id: "6", category: "Zapatos", image_url: "https://via.placeholder.com/150")
+        ]
 
         let colors = [
             ColorClothes(id: "col1", color: "Blanco"),

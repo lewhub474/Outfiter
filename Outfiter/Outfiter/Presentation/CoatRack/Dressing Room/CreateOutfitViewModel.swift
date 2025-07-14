@@ -14,6 +14,42 @@ final class CreateOutfitViewModel: ObservableObject {
     @Published var outfitName: String = ""
     @Published var showSuccessPopup: Bool = false
     @Published var outfitResponse: String?
+    @Published var closetData: [Garments] = []
+    @Published var searchText: String = ""
+    @Published var selectedCategory: String = "Todas"
+
+    
+
+    var filteredClothing: [Garments] {
+        closetData.filter { clothing in
+            let matchesSearch = searchText.isEmpty ||
+                (clothing.name?.localizedCaseInsensitiveContains(searchText) ?? false)
+
+            let matchesCategory = selectedCategory == "Todas" ||
+                (clothing.category?.category == selectedCategory)
+
+            return matchesSearch && matchesCategory
+        }
+    }
+
+
+//    private var closetData: [Garments] = []
+
+    func loadClosetData(from viewModel: ClosetViewModel) {
+        closetData = viewModel.datosModelo
+        print("Closet data cargado con \(closetData.count) prendas")
+        print("Categorías encontradas:", closetData.map { $0.category?.category ?? "nil" })
+    }
+
+
+    var uniqueCategories: [String] {
+        let categories = closetData.compactMap { $0.category?.category }.filter { !$0.isEmpty }
+        let unique = Set(categories)
+        return ["Todas"] + unique.sorted()
+    }
+
+
+
 
     private let postProvider = NetworkingProviderOutfit()
 
@@ -68,3 +104,4 @@ final class CreateOutfitViewModel: ObservableObject {
         }
     }
 }
+
