@@ -9,12 +9,10 @@ import SwiftUI
 
 struct ClothingCard: View {
     let garment: Garments
-    @EnvironmentObject var viewModel: ClosetViewModel
-
+    var viewModel: ClosetViewModel
+    
     var body: some View {
         ZStack(alignment: .bottom) {
-            
-            // Imagen principal ocupando todo el fondo
             AsyncImage(url: URL(string: garment.imgURL ?? "")) { phase in
                 switch phase {
                 case .success(let image):
@@ -29,7 +27,7 @@ struct ClothingCard: View {
                         .frame(width: 180, height: 240)
                 }
             }
-
+            
             // Capa inferior con nombre y botón
             HStack {
                 Text(garment.name ?? "Sin nombre")
@@ -38,15 +36,24 @@ struct ClothingCard: View {
                     .lineLimit(2)
                     .minimumScaleFactor(0.6)
                     .multilineTextAlignment(.leading)
-
+                
                 Spacer()
-
                 Button(action: {
+                    print("🗑️ Borrando")
                     Task {
                         if let index = viewModel.datosModelo.firstIndex(where: { $0.id == garment.id }) {
                             viewModel.isLoading = true
-                            let _ = await viewModel.deletePost(at: index)
-                            await viewModel.getPosts()
+                            
+                            let eliminado = await viewModel.deletePost(at: index)
+                            
+                            if eliminado {
+                                // Esperar 1 segundo para dar tiempo al backend
+                                try? await Task.sleep(nanoseconds: 1_000_000_000)
+                                print("🕒 Salió del delay, recargando lista desde el backend...")
+                                
+                                await viewModel.getPosts()
+                            }
+                            
                             viewModel.isLoading = false
                         }
                     }
@@ -54,7 +61,7 @@ struct ClothingCard: View {
                     Image(systemName: "trash")
                         .foregroundColor(.white)
                         .padding(6)
-                        .background(Circle().fill(Color.black.opacity(0.5))) // Fondo oscuro para contraste
+                        .background(Circle().fill(Color.black.opacity(0.5)))
                 }
             }
             .padding(8)
@@ -82,13 +89,13 @@ struct ClothingCard: View {
         color: ColorClothes(id: "", color: "Amarillo"),
         imgURL: ""
     )
-
+    
     let viewModel = ClosetViewModel()
-
-    return ZStack {
+    
+    ZStack {
         Color.gray.opacity(0.2).ignoresSafeArea()
-
-        ClothingCard(garment: sampleGarment)
+        
+        ClothingCard(garment: sampleGarment, viewModel: viewModel)
             .environmentObject(viewModel)
     }
 }

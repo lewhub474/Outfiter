@@ -5,15 +5,14 @@
 //  Created by Macky on 21/02/25.
 //
 
-
 import SwiftUI
 
 struct CreateOutfitView: View {
     @Binding var selectedTab: Int
-    @ObservedObject var closetViewModel: ClosetViewModel
+    @StateObject var closetViewModel = ClosetViewModel()
     @StateObject private var viewModel = CreateOutfitViewModel()
     @Environment(\.presentationMode) var presentationMode
-
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -22,11 +21,11 @@ struct CreateOutfitView: View {
                         .font(.title)
                         .bold()
                         .padding(.top, 20)
-
+                    
                     Text("Selecciona las prendas para tu outfit:")
                         .font(.title3)
                         .foregroundColor(.gray)
-
+                    
                     TextField("Nombre del outfit", text: $viewModel.outfitName)
                         .padding(10)
                         .background(.white)
@@ -40,15 +39,7 @@ struct CreateOutfitView: View {
                         .cornerRadius(8)
                         .overlay(RoundedRectangle(cornerRadius: 8).stroke(.gray))
                         .padding(.horizontal)
-
-//                    Picker("Categoría", selection: $viewModel.selectedCategory) {
-//                        ForEach(viewModel.uniqueCategories, id: \.self) { category in
-//                            Text(category).tag(category)
-//                        }
-//                    }
-//                    .pickerStyle(SegmentedPickerStyle())
-//                    .padding(.horizontal)
-
+                    
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 12) {
                             ForEach(viewModel.uniqueCategories, id: \.self) { category in
@@ -67,13 +58,13 @@ struct CreateOutfitView: View {
                         }
                         .padding(.horizontal)
                     }
-
+                    
                     
                     ScrollView {
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
                             ForEach(viewModel.filteredClothing) { clothing in
-
-//                            ForEach(closetViewModel.datosModelo) { clothing in
+                                
+                                //                            ForEach(closetViewModel.datosModelo) { clothing in
                                 let isSelected = viewModel.selectedClothingIDs.contains(clothing.id ?? "")
                                 SelectableClothingCard(garment: clothing, isSelected: isSelected) {
                                     if isSelected {
@@ -86,18 +77,18 @@ struct CreateOutfitView: View {
                         }
                         .padding(.horizontal)
                     }
-
+                    
                     Button("Crear Outfit") {
-                        viewModel.enviarOutfit(viewModel: closetViewModel)
+                        viewModel.enviarOutfit()
+                        
                     }
-
-
+                    
                     .frame(width: 200, height: 40)
                     .background(.black)
                     .foregroundColor(.white)
                     .cornerRadius(10)
                     .padding()
-
+                    
                 }
                 .padding(.bottom, 40)
             }
@@ -112,11 +103,6 @@ struct CreateOutfitView: View {
                 }
             )
         }
-        .onAppear {
-            viewModel.loadClosetData(from: closetViewModel)
-        }
-
-
     }
 }
 
@@ -125,16 +111,15 @@ struct CreateOutfitView: View {
         @State var selectedClothingIDs: [String] = []
         @State var outfitName: String = ""
         @State var selectedTab: Int = 1
-
+        
         var body: some View {
             CreateOutfitView(
                 selectedTab: $selectedTab,
-                closetViewModel: ClosetViewModelMock2() // este es el nombre correcto
+                closetViewModel: ClosetViewModelMock2()
             )
-
+            
         }
     }
-
     return PreviewWrapper()
 }
 

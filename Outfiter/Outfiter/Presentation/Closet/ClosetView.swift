@@ -24,11 +24,14 @@ struct ClosetView: View {
     @State private var showAddClothingWithImage = false
     @State private var showSideMenu = false
     @State private var textSearch = ""
+    @State private var selectedCategoryFilter: String = "Todas"
+    @State private var categories: [Category] = []
 
+    
     @State private var headerState: HeaderState = .expanded
     @State private var offset: CGFloat = .zero
 
-    private let expandedHeaderHeight: CGFloat = 150
+    private let expandedHeaderHeight: CGFloat = 170
     private let collapsedHeaderHeight: CGFloat = -140
 
     var body: some View {
@@ -64,7 +67,7 @@ struct ClosetView: View {
                     ZStack {
                         Color.black.opacity(0.6).ignoresSafeArea()
                         VStack(spacing: 16) {
-                            GIFView(gifName: "TDTV_loading") // Considera usar otro GIF para errores
+                            GIFView(gifName: "TDTV_loading") // Cambia por un gif de error si lo tienes
                                 .frame(width: 150, height: 150)
                             Text(error)
                                 .foregroundColor(.white)
@@ -79,38 +82,11 @@ struct ClosetView: View {
         .task {
             await viewModel.getPosts()
         }
-        .sheet(isPresented: $showPostDataInput) {
-            AddClothingView(
-                name: $name,
-                selectedCategory: $selectedCategory,
-                selectedColor: $selectedColor
-            )
-            .onDisappear {
-                Task {
-                    await viewModel.getPosts()
-                }
-            }
-        }
-        .sheet(isPresented: $showOutfits) {
-            ViewerOutfits()
-        }
-//        .sheet(isPresented: $showAddClothingWithImage) {
-//            AddClothingUploadImage(
-//                name: $name,
-//                selectedCategory: $selectedCategory,
-//                selectedColor: $selectedColor
-//            )
-//            .onDisappear {
-//                Task {
-//                    await viewModel.getPosts()
-//                }
-//            }
-//        }
-//        .environmentObject(viewModel)
-//        .ignoresSafeArea(.keyboard)
+        
+        
     }
 
-    // MARK: - Header View
+    // MARK: - Header Content
     @ViewBuilder
     func headerContent() -> some View {
         VStack(spacing: 0) {
@@ -120,17 +96,42 @@ struct ClosetView: View {
                 profileImage: Image("tendativa_banner")
             )
 
-            StoryTabBar(stories: [
-                StoryItem(image: Image("tendativa_banner"), label: "Favoritos", borderColor: .green, action: { print("Favoritos") }),
-                StoryItem(image: Image("jacket.image"), label: "Camisetas", borderColor: .purple, action: { print("Camisetas") }),
-                StoryItem(image: Image("pants.image"), label: "Pantalones", borderColor: .orange, action: { print("Pantalones") }),
-                StoryItem(image: Image("headphones.image"), label: "Accesorios", borderColor: .gray, action: { print("Accesorios") })
-            ])
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 16) {
+                    ForEach(viewModel.uniqueCategories, id: \.self) { category in
+                        Button(action: {
+                            selectedCategoryFilter = category
+                        }) {
+                            VStack {
+                                ZStack {
+                                    Circle()
+                                        .stroke(selectedCategoryFilter == category ? Color.orange : Color.gray, lineWidth: 3)
+                                        .frame(width: 74, height: 74)
+
+                                    categoryImageView(for: category)
+
+                                }
+
+                                Text(category)
+                                    .font(.caption2)
+                                    .foregroundColor(.white)
+                                    .lineLimit(1)
+                                    .bold()
+                            }
+                        }
+                    }
+                }
+                .padding(.horizontal)
+                .padding(.vertical, 10)
+            }
+            
+            SearchBarView(text: $textSearch)
+                .padding(.bottom, 10)
         }
         .background(Color.black)
     }
 
-    // MARK: - Scroll Content View
+    // MARK: - Scroll Content
     @ViewBuilder
     func scrollableContent() -> some View {
         let spacing: CGFloat = 12
@@ -139,11 +140,21 @@ struct ClosetView: View {
             GridItem(.flexible(), spacing: spacing)
         ]
 
+        let filteredGarments = viewModel.datosModelo.filter { garment in
+            let matchesCategory = selectedCategoryFilter == "Todas" ||
+                garment.category?.category == selectedCategoryFilter
+
+            let matchesSearch = textSearch.isEmpty ||
+                (garment.name?.localizedCaseInsensitiveContains(textSearch) ?? false)
+
+            return matchesCategory && matchesSearch
+        }
+
         ScrollView {
             LazyVGrid(columns: columns, spacing: spacing) {
-                ForEach(viewModel.datosModelo) { garment in
+                ForEach(filteredGarments) { garment in
                     NavigationLink(destination: OutfitsForClothingView(clothing: garment)) {
-                        ClothingCard(garment: garment)
+                        ClothingCard(garment: garment, viewModel: viewModel)
                     }
                     .buttonStyle(PlainButtonStyle())
                 }
@@ -161,8 +172,41 @@ struct ClosetView: View {
         .blur(radius: viewModel.isLoading ? 3 : 0)
         .disabled(viewModel.isLoading)
     }
-}
 
+    // MARK: - Helper
+    @ViewBuilder
+    func categoryImageView(for category: String) -> some View {
+        if let imageURL = lastGarmentImageURL(for: category), let url = URL(string: imageURL) {
+            AsyncImage(url: url) { image in
+                image
+                    .resizable()
+                    .scaledToFill()
+            } placeholder: {
+                ProgressView()
+            }
+            .frame(width: 56, height: 56)
+            .clipShape(Circle())
+            .foregroundColor(.orange)
+           
+        } else {
+            Image(systemName: "photo")
+                .resizable()
+                .scaledToFill()
+                .frame(width: 56, height: 56)
+                .clipShape(Circle())
+                .foregroundColor(.gray)
+        }
+    }
+
+
+
+    func lastGarmentImageURL(for category: String) -> String? {
+        return viewModel.datosModelo
+            .filter { $0.category?.category == category }
+            .last?
+            .imgURL
+    }
+}
 
 #Preview {
     let mockViewModel = ClosetViewModelMock2(isLoading: false)

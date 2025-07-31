@@ -11,10 +11,9 @@ import SwiftUI
 
 struct ClothingListView: View {
     let garments: [Garments]
-    
+    var viewmodel = ClosetViewModel()
     // Espaciado horizontal entre columnas
     private let spacing: CGFloat = 12
-    
     // Dos columnas con espaciado uniforme
     let columns = [
         GridItem(.flexible(), spacing: 12),
@@ -26,7 +25,7 @@ struct ClothingListView: View {
             LazyVGrid(columns: columns, spacing: spacing) { // Espaciado vertical
                 ForEach(garments) { garment in
                     NavigationLink(destination: OutfitsForClothingView(clothing: garment)) {
-                        ClothingCard(garment: garment)
+                        ClothingCard(garment: garment, viewModel: viewmodel)
                     }
                     .buttonStyle(PlainButtonStyle())
                 }
@@ -70,9 +69,9 @@ struct ClothingListView: View {
             imgURL: "https://via.placeholder.com/180x240"
         )
     ]
-
+    
     let viewModel = ClosetViewModel()
-
+    
     return NavigationView {
         ClothingListView(garments: sampleGarments)
             .environmentObject(viewModel) // Necesario para ClothingCard2

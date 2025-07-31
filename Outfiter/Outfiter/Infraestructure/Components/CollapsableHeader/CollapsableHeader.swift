@@ -68,10 +68,11 @@ struct CollapsableHeader<HeaderView: View, ScrollView: View>: View {
 //MARK: Preview
 
 struct CollapsableHeaderPreview: View {
+    @StateObject var viewModel = ClosetViewModel()
     @State var headerState: HeaderState = .expanded
     @State var offset: CGFloat = .zero
     
-    private let expandedHeaderHeight: CGFloat = 50
+    private let expandedHeaderHeight: CGFloat = 60
     private let collapsedHeaderHeight: CGFloat = -140
     let garments: [Garments]  // propiedad normal
     
@@ -109,7 +110,7 @@ struct CollapsableHeaderPreview: View {
             LazyVGrid(columns: columns, spacing: spacing) { // Espaciado vertical
                 ForEach(garments) { garment in
                     NavigationLink(destination: OutfitsForClothingView(clothing: garment)) {
-                        ClothingCard(garment: garment)
+                        ClothingCard(garment: garment, viewModel: viewModel)
                     }
                     .buttonStyle(PlainButtonStyle())
                 }

@@ -24,27 +24,35 @@ class NetworkingProviderCloset: ObservableObject {
         return decodedResponse
     }
     
-    
     func deletePost(postID: String) async -> String? {
         guard let url = URL(string: "https://backend-ot4e.onrender.com/api/clothings/\(postID)") else {
-            print("URL inválida")
+            print("❌ URL inválida")
             return nil
         }
-        
+
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
         
         do {
             let (_, response) = try await URLSession.shared.data(for: request)
+            
             if let httpResponse = response as? HTTPURLResponse {
-                if httpResponse.statusCode == 204 {
+                print("📡 Código de respuesta DELETE: \(httpResponse.statusCode)")
+                
+                if (200...299).contains(httpResponse.statusCode) {
                     return "Post eliminado"
+                } else {
+                    print("⚠️ No se eliminó. Código: \(httpResponse.statusCode)")
+                    return nil
                 }
+            } else {
+                print("❌ No se pudo obtener HTTPURLResponse")
             }
         } catch {
-            print("Error al eliminar el post: \(error)")
+            print("❌ Error al eliminar el post: \(error.localizedDescription)")
         }
-        
+
         return nil
     }
+
 }
