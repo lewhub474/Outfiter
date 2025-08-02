@@ -36,7 +36,7 @@ struct DashboardView: View {
         case 1:
             CreateOutfitView(selectedTab: $selectedTab)
         case 2:
-            AddClothingUploadImage(
+            AddClothingUploadImageView(
                 name: $name,
                 selectedTab: $selectedTab
             )
