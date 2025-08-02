@@ -33,6 +33,10 @@
 		809D2D8E2E1C681800C47DF9 /* HeaderState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D2D8D2E1C681400C47DF9 /* HeaderState.swift */; };
 		809D2D902E1C69DE00C47DF9 /* ScrollOffsetPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D2D8F2E1C69DD00C47DF9 /* ScrollOffsetPreferenceKey.swift */; };
 		809D2D932E1C6A3900C47DF9 /* CollapsableHeader+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D2D922E1C6A2B00C47DF9 /* CollapsableHeader+View.swift */; };
+		80CC717D2E3D64B300915FEA /* Removebackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC717C2E3D64AD00915FEA /* Removebackground.swift */; };
+		80CC71802E3DB86A00915FEA /* AddClothingUploadImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC717F2E3DB86000915FEA /* AddClothingUploadImageViewModel.swift */; };
+		80CC71822E3DB88E00915FEA /* ImageUploadProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC71812E3DB88900915FEA /* ImageUploadProvider.swift */; };
+		80CC71842E3DB8A700915FEA /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC71832E3DB8A300915FEA /* ImagePicker.swift */; };
 		80D4FC652E0B413100FC410E /* TopBarView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4FC642E0B412900FC410E /* TopBarView2.swift */; };
 		80D4FC682E0D130E00FC410E /* TopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4FC672E0D130C00FC410E /* TopBarView.swift */; };
 		80D4FC6B2E0D134C00FC410E /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4FC6A2E0D134800FC410E /* TabBarView.swift */; };
@@ -89,6 +93,10 @@
 		809D2D8F2E1C69DD00C47DF9 /* ScrollOffsetPreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollOffsetPreferenceKey.swift; sourceTree = "<group>"; };
 		809D2D922E1C6A2B00C47DF9 /* CollapsableHeader+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollapsableHeader+View.swift"; sourceTree = "<group>"; };
 		80A7D3FF2D71A8A400B64035 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		80CC717C2E3D64AD00915FEA /* Removebackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Removebackground.swift; sourceTree = "<group>"; };
+		80CC717F2E3DB86000915FEA /* AddClothingUploadImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClothingUploadImageViewModel.swift; sourceTree = "<group>"; };
+		80CC71812E3DB88900915FEA /* ImageUploadProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadProvider.swift; sourceTree = "<group>"; };
+		80CC71832E3DB8A300915FEA /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		80D4FC642E0B412900FC410E /* TopBarView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarView2.swift; sourceTree = "<group>"; };
 		80D4FC672E0D130C00FC410E /* TopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarView.swift; sourceTree = "<group>"; };
 		80D4FC6A2E0D134800FC410E /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
@@ -195,6 +203,7 @@
 		802317262DEEE0BC00B279B8 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				80CC717B2E3D649F00915FEA /* RemoveBackground */,
 				800931272E20D93300B244E4 /* SelectableClothingCard */,
 				809D2D8C2E1C67EA00C47DF9 /* CollapsableHeader */,
 				80D4FC692E0D133300FC410E /* TabBars */,
@@ -302,7 +311,8 @@
 		8085523A2DED63CE004E9803 /* FreshDrop */ = {
 			isa = PBXGroup;
 			children = (
-				80DA8E892DF2858300A6C3C5 /* AddClothingUploadImage.swift */,
+				80CC717E2E3DB80500915FEA /* AddClothesWithoutBackground */,
+				80CC71852E3DB8F600915FEA /* AddClothingWithBG */,
 			);
 			path = FreshDrop;
 			sourceTree = "<group>";
@@ -331,6 +341,32 @@
 				809D2D922E1C6A2B00C47DF9 /* CollapsableHeader+View.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		80CC717B2E3D649F00915FEA /* RemoveBackground */ = {
+			isa = PBXGroup;
+			children = (
+				80CC717C2E3D64AD00915FEA /* Removebackground.swift */,
+			);
+			path = RemoveBackground;
+			sourceTree = "<group>";
+		};
+		80CC717E2E3DB80500915FEA /* AddClothesWithoutBackground */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AddClothesWithoutBackground;
+			sourceTree = "<group>";
+		};
+		80CC71852E3DB8F600915FEA /* AddClothingWithBG */ = {
+			isa = PBXGroup;
+			children = (
+				80DA8E892DF2858300A6C3C5 /* AddClothingUploadImage.swift */,
+				80CC717F2E3DB86000915FEA /* AddClothingUploadImageViewModel.swift */,
+				80CC71812E3DB88900915FEA /* ImageUploadProvider.swift */,
+				80CC71832E3DB8A300915FEA /* ImagePicker.swift */,
+			);
+			path = AddClothingWithBG;
 			sourceTree = "<group>";
 		};
 		80D4FC662E0D12EA00FC410E /* TopBars */ = {
@@ -381,8 +417,8 @@
 		80D5D2E92D68684D004C672A /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				80D5D2EA2D686871004C672A /* NetworkingProviderCloset.swift */,
 				80D5D2F22D686A5B004C672A /* NetworkingProviderPost.swift */,
+				80D5D2EA2D686871004C672A /* NetworkingProviderCloset.swift */,
 				80D5D2F42D686A78004C672A /* NetworkingProviderOutfits.swift */,
 			);
 			path = Networking;
@@ -513,6 +549,7 @@
 				80D5D2FF2D686CDA004C672A /* DatabaseOutfits.swift in Sources */,
 				807774742E198CCE00970407 /* GIFView.swift in Sources */,
 				E2A9EC072A958C8F005B5502 /* ClosetView.swift in Sources */,
+				80CC717D2E3D64B300915FEA /* Removebackground.swift in Sources */,
 				809D2D932E1C6A3900C47DF9 /* CollapsableHeader+View.swift in Sources */,
 				8012291F2D6C368C00C7A410 /* DeleteOutfitUseCase.swift in Sources */,
 				800931292E20D94C00B244E4 /* SelectableClothingCard.swift in Sources */,
@@ -528,11 +565,13 @@
 				80D5D2F92D686C43004C672A /* CreateOutfitView.swift in Sources */,
 				E2A9EC052A958C8F005B5502 /* OutfiterApp.swift in Sources */,
 				80D5D2EB2D686871004C672A /* NetworkingProviderCloset.swift in Sources */,
+				80CC71802E3DB86A00915FEA /* AddClothingUploadImageViewModel.swift in Sources */,
 				80D5D2EF2D686A0A004C672A /* Clothings.swift in Sources */,
 				801229232D6C3ADB00C7A410 /* ClothingForOutfitsView.swift in Sources */,
 				80502E002DF6AF9600036D1B /* CustomTextField.swift in Sources */,
 				809D2D8E2E1C681800C47DF9 /* HeaderState.swift in Sources */,
 				801229212D6C369C00C7A410 /* DeleteOutfitUseCaseProtocol.swift in Sources */,
+				80CC71822E3DB88E00915FEA /* ImageUploadProvider.swift in Sources */,
 				801E93332D69A83F00533D3D /* CreateOutfitUseCase.swift in Sources */,
 				80D5D2FD2D686CA2004C672A /* OutfitDetailView.swift in Sources */,
 				807774792E198E8000970407 /* Recycling.swift in Sources */,
@@ -548,6 +587,7 @@
 				8077747C2E198F0800970407 /* ClosetViewModelMock.swift in Sources */,
 				801E93362D69A93B00533D3D /* OutfitRepositoryProtocol.swift in Sources */,
 				807774772E198D6C00970407 /* ProfileView.swift in Sources */,
+				80CC71842E3DB8A700915FEA /* ImagePicker.swift in Sources */,
 				80D5D2F52D686A78004C672A /* NetworkingProviderOutfits.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

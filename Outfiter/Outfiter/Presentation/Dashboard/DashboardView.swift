@@ -11,8 +11,8 @@ struct DashboardView: View {
     @State private var selectedTab = 0
     @State private var showSideMenu = false
     @State private var name = ""
-    @State private var selectedCategory = "64ca77d45cf35ef21b7ece5a"
-    @State private var selectedColor = "64ca772f5cf35ef21b7ece41"
+//    @State private var selectedCategory = "64ca77d45cf35ef21b7ece5a"
+//    @State private var selectedColor = "64ca772f5cf35ef21b7ece41"
     @State private var selectedClothingIDs: [String] = []
     @State private var outfitName = ""
     
@@ -38,12 +38,12 @@ struct DashboardView: View {
         case 2:
             AddClothingUploadImage(
                 name: $name,
-                selectedCategory: $selectedCategory,
-                selectedColor: $selectedColor,
                 selectedTab: $selectedTab
             )
         case 3: ViewerOutfits()
-        case 4: ClosetCompositionView()
+//        case 4: ClosetCompositionView()
+        case 4: RemoveBGView()
+
         default: ClosetView()
             
         }
