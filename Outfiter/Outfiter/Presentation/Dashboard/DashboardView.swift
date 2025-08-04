@@ -41,6 +41,7 @@ struct DashboardView: View {
                 selectedTab: $selectedTab
             )
         case 3: ViewerOutfits()
+            
 //        case 4: ClosetCompositionView()
         case 4: RemoveBGView()
 

@@ -18,6 +18,13 @@ final class CreateOutfitViewModel: ObservableObject {
     @Published var closetData: [Garments] = []
     @Published var searchText: String = ""
     @Published var selectedCategory: String = "Todas"
+    var selectedClothingImages: [String] {
+        closetData
+            .filter { selectedClothingIDs.contains($0.id ?? "") }
+            .compactMap { $0.imgURL } // Asegúrate de que `Garments` tenga `image: String?`
+    }
+
+    
     
     private let postProvider = NetworkingProviderOutfit()
     private var cancellables = Set<AnyCancellable>()

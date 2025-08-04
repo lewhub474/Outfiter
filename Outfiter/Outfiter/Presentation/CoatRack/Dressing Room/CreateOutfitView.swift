@@ -12,6 +12,9 @@ struct CreateOutfitView: View {
     @StateObject var closetViewModel = ClosetViewModel()
     @StateObject private var viewModel = CreateOutfitViewModel()
     @Environment(\.presentationMode) var presentationMode
+    @State private var showCompositionView = false
+
+    
     
     var body: some View {
         NavigationView {
@@ -79,9 +82,31 @@ struct CreateOutfitView: View {
                     }
                     
                     Button("Crear Outfit") {
-                        viewModel.enviarOutfit()
-                        
+                        showCompositionView = true
                     }
+                    .frame(width: 200, height: 40)
+                    .background(.black)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                    .padding()
+                    .fullScreenCover(isPresented: $showCompositionView) {
+                        OutfitCompositionView(
+                            images: viewModel.selectedClothingImages,
+                            onSave: {
+                                viewModel.enviarOutfit()
+                                showCompositionView = false
+                            },
+                            onCancel: {
+                                showCompositionView = false
+                            }
+                        )
+                    }
+
+                    
+//                    Button("Crear Outfit") {
+//                        viewModel.enviarOutfit()
+//                        
+//                    }
                     
                     .frame(width: 200, height: 40)
                     .background(.black)

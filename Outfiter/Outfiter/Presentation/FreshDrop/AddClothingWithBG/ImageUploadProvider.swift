@@ -48,7 +48,8 @@ class ImageUploadProvider {
         let boundary = UUID().uuidString
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         
-        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+//        guard let imageData = image.jpegData (compressionQuality: 0.8) else {
+        guard let imageData = image.pngData() else {
             print("❌ No se pudo convertir la imagen a JPEG")
             return
         }
