@@ -17,7 +17,7 @@ class NetworkingProviderCloset: ObservableObject {
         let (data, _) = try await URLSession.shared.data(from: url)
         
         if let rawJSON = String(data: data, encoding: .utf8) {
-            print("📥 JSON crudo recibido:\n\(rawJSON)")
+//            print("📥 JSON crudo recibido:\n\(rawJSON)") quitar comentario
         }
         
         let decodedResponse = try JSONDecoder().decode([Garments].self, from: data)

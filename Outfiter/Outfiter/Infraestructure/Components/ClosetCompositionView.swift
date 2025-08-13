@@ -18,6 +18,8 @@ struct OutfitCompositionView: View {
     let images: [String]
     var onSave: () -> Void
     var onCancel: () -> Void
+    @State private var showSuccessOutfit = false
+
 
     @State private var items: [DraggableImage] = []
 
@@ -91,3 +93,13 @@ struct OutfitCompositionView: View {
         }
     }
 }
+//
+//    .alert(isPresented: $showSuccessOutfit) {
+//        Alert(
+//            title: Text("Prenda añadida"),
+//            message: Text("Se agregó exitosamente al closet."),
+//            dismissButton: .default(Text("OK")) {
+//                selectedTab = 0
+//            }
+//        )
+//    }

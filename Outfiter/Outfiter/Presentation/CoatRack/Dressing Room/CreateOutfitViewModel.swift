@@ -91,12 +91,12 @@ final class CreateOutfitViewModel: ObservableObject {
         let selectedColorNames = closetData
             .filter { selectedClothingIDs.contains($0.id ?? "") }
             .compactMap { $0.color?.color }
-        
-        print("Nombre del Outfit: \(outfitName)")
-        print("Nombres de las prendas seleccionadas: \(selectedClothingNames.joined(separator: ", "))")
-        print("IDs seleccionados de prendas: \(selectedClothingIDs.joined(separator: ", "))")
-        print("Categorías seleccionadas: \(selectedCategoryNames.joined(separator: ", "))")
-        print("Colores seleccionados: \(selectedColorNames.joined(separator: ", "))")
+//        Quitar comentarios
+//        print("Nombre del Outfit: \(outfitName)")
+//        print("Nombres de las prendas seleccionadas: \(selectedClothingNames.joined(separator: ", "))")
+//        print("IDs seleccionados de prendas: \(selectedClothingIDs.joined(separator: ", "))")
+//        print("Categorías seleccionadas: \(selectedCategoryNames.joined(separator: ", "))")
+//        print("Colores seleccionados: \(selectedColorNames.joined(separator: ", "))")
         
         let body: [String: Any] = [
             "name": outfitName,

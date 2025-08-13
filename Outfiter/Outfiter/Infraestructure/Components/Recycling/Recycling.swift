@@ -1002,3 +1002,142 @@
 //    }
 //}
 
+//import SwiftUI
+//
+//struct CreateOutfitView: View {
+//    @Binding var selectedTab: Int
+//    @StateObject var closetViewModel = ClosetViewModel()
+//    @StateObject private var viewModel = CreateOutfitViewModel()
+//    @Environment(\.presentationMode) var presentationMode
+//    @State private var showCompositionView = false
+//
+//    @Binding var isTabBarVisible: Bool
+//    @State private var lastScrollOffset: CGFloat = 0
+//
+//    var body: some View {
+//        NavigationView {
+//            ZStack(alignment: .bottom) {
+//                ScrollView {
+//                    // Medidor de scroll
+//                   
+//
+//                    VStack(alignment: .leading, spacing: 16) {
+//                        
+//                        GeometryReader { geo in
+//                               Color.clear
+//                                   .preference(
+//                                       key: ScrollOffsetKey.self,
+//                                       value: geo.frame(in: .named("scrollArea")).minY
+//                                   )
+//                           }
+//                           .frame(height: 0)
+//                        
+//                        Text("Dressing Room")
+//                            .font(.title)
+//                            .bold()
+//                            .padding(.top, 20)
+//
+//                        Text("Selecciona las prendas para tu outfit:")
+//                            .font(.title3)
+//                            .foregroundColor(.gray)
+//
+//                        TextField("Nombre del outfit", text: $viewModel.outfitName)
+//                            .padding(10)
+//                            .background(.white)
+//                            .cornerRadius(8)
+//                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(.black, lineWidth: 1))
+//                            .padding(.horizontal)
+//
+//                        TextField("Buscar prenda...", text: $viewModel.searchText)
+//                            .padding(10)
+//                            .background(Color(.systemGray6))
+//                            .cornerRadius(8)
+//                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(.gray))
+//                            .padding(.horizontal)
+//
+//                        ScrollView(.horizontal, showsIndicators: false) {
+//                            HStack(spacing: 12) {
+//                                ForEach(viewModel.uniqueCategories, id: \.self) { category in
+//                                    Button(action: {
+//                                        viewModel.selectedCategory = category
+//                                    }) {
+//                                        Text(category)
+//                                            .font(.subheadline)
+//                                            .padding(.vertical, 8)
+//                                            .padding(.horizontal, 16)
+//                                            .background(viewModel.selectedCategory == category ? Color.black : Color.gray.opacity(0.3))
+//                                            .foregroundColor(viewModel.selectedCategory == category ? .white : .black)
+//                                            .cornerRadius(16)
+//                                    }
+//                                }
+//                            }
+//                            .padding(.horizontal)
+//                        }
+//
+//                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
+//                            ForEach(viewModel.filteredClothing) { clothing in
+//                                let isSelected = viewModel.selectedClothingIDs.contains(clothing.id ?? "")
+//                                SelectableClothingCard(garment: clothing, isSelected: isSelected) {
+//                                    if isSelected {
+//                                        viewModel.selectedClothingIDs.removeAll { $0 == clothing.id }
+//                                    } else {
+//                                        viewModel.selectedClothingIDs.append(clothing.id ?? "")
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        .padding(.horizontal)
+//
+//                        Spacer(minLength: isTabBarVisible ? 60 : 20)
+//                    }
+//                }
+//                .coordinateSpace(name: "scrollArea")
+//                .onPreferenceChange(ScrollOffsetKey.self) { value in
+//                    let diff = value - lastScrollOffset
+//
+//                    if diff > -10 { // Bajando scroll
+//                        print("📉 Bajando scroll → ocultar TabBar (\(value))")
+//                        withAnimation(.easeInOut) { isTabBarVisible = false }
+//                    } else if diff > 10 { // Subiendo scroll
+//                        print("📈 Subiendo scroll → mostrar TabBar (\(value))")
+//                        withAnimation(.easeInOut) { isTabBarVisible = true }
+//                    }
+//
+//                    lastScrollOffset = value
+//                }
+//
+//                Button("Crear Outfit") {
+//                                  showCompositionView = true
+//                              }
+//                              .frame(width: 200, height: 40)
+//                              .background(.black)
+//                              .foregroundColor(.white)
+//                              .cornerRadius(10)
+//                              .padding(.bottom, isTabBarVisible ? 70 : 20)
+//                              .zIndex(1)
+//                              .fullScreenCover(isPresented: $showCompositionView) {
+//                                  OutfitCompositionView(
+//                                      images: viewModel.selectedClothingImages,
+//                                      onSave: {
+//                                          viewModel.enviarOutfit()
+//                                          showCompositionView = false
+//                                      },
+//                                      onCancel: {
+//                                          showCompositionView = false
+//                                      }
+//                                  )
+//                              }
+//              
+//            }
+//        }
+//    }
+//}
+//
+//// PreferenceKey para leer scroll
+//struct ScrollOffsetKey: PreferenceKey {
+//    static var defaultValue: CGFloat = 0
+//    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+//        value = nextValue()
+//    }
+//}
+//creo que si esta funcionando la logica pero el valor inicial de diff es cero entonces creo que hay que revisar las condiciones if como se estan manejando el mayor y menor. que 
