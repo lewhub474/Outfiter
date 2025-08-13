@@ -879,3 +879,126 @@
 //        onTap: {}
 //    )
 //}
+
+
+//MARK: vainas de outfitviewer
+
+//
+//struct ClosetCompositionView: View {
+//    @State private var items: [DraggableImage] = [
+//        DraggableImage(name: "imagen1"),
+//        DraggableImage(name: "imagen2"),
+//        DraggableImage(name: "imagen3")
+//    ]
+//
+//    var body: some View {
+//        ZStack {
+//            Color.white.ignoresSafeArea()
+//
+//            ForEach($items) { $item in
+//                Image(item.name)
+//                    .resizable()
+//                    .scaledToFit()
+//                    .frame(width: 150, height: 150)
+//                    .scaleEffect(item.scale)
+//                    .position(item.position)
+//                    .gesture(
+//                        DragGesture()
+//                            .onChanged { value in
+//                                item.position = value.location
+//                            }
+//                    )
+//                    .gesture(
+//                        MagnificationGesture()
+//                            .onChanged { value in
+//                                item.scale = value
+//                            }
+//                    )
+//                    .onAppear {
+//                        if item.position == .zero {
+//                            item.position = CGPoint(x: UIScreen.main.bounds.midX,
+//                                                    y: UIScreen.main.bounds.midY)
+//                        }
+//                    }
+//            }
+//        }
+//    }
+//}
+
+//import SwiftUI
+
+//struct DraggableImage: Identifiable {
+//    let id = UUID()
+//    let name: String
+//    var position: CGPoint = .zero
+//    var scale: CGFloat = 1.0
+//}
+//
+//struct OutfitCompositionView: View {
+//    let images: [String]
+//    var onSave: () -> Void
+//    var onCancel: () -> Void
+//
+//    @State private var items: [DraggableImage] = []
+//
+//    var body: some View {
+//        ZStack {
+//            Color.white.ignoresSafeArea()
+//
+//            ForEach($items) { $item in
+//                AsyncImage(url: URL(string: item.name)) { phase in
+//                    if let image = phase.image {
+//                        image
+//                            .resizable()
+//                            .scaledToFit()
+//                            .frame(width: 150, height: 150)
+//                            .scaleEffect(item.scale)
+//                            .position(item.position)
+//                            .gesture(
+//                                DragGesture()
+//                                    .onChanged { value in
+//                                        item.position = value.location
+//                                    }
+//                            )
+//                            .gesture(
+//                                MagnificationGesture()
+//                                    .onChanged { value in
+//                                        item.scale = value
+//                                    }
+//                            )
+//                            .onAppear {
+//                                if item.position == .zero {
+//                                    item.position = CGPoint(x: UIScreen.main.bounds.midX,
+//                                                            y: UIScreen.main.bounds.midY)
+//                                }
+//                            }
+//                    } else {
+//                        ProgressView()
+//                            .frame(width: 150, height: 150)
+//                    }
+//                }
+//            }
+//
+//            VStack {
+//                HStack {
+//                    Button("Cancelar") {
+//                        onCancel()
+//                    }
+//                    .padding()
+//
+//                    Spacer()
+//
+//                    Button("Guardar Outfit") {
+//                        onSave()
+//                    }
+//                    .padding()
+//                }
+//                Spacer()
+//            }
+//        }
+//        .onAppear {
+//            items = images.map { DraggableImage(name: $0) }
+//        }
+//    }
+//}
+
