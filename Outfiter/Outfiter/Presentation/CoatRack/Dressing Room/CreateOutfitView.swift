@@ -256,11 +256,11 @@ struct CreateOutfitView: View {
                         images: viewModel.selectedClothingImages,
                         onSave: {
                             viewModel.enviarOutfit()
-                            showCompositionView = false
+//                            showCompositionView = false
                         },
                         onCancel: {
                             showCompositionView = false
-                        }
+                        }, selectedTab: $selectedTab
                     )
                 }
                 

@@ -19,6 +19,7 @@ struct OutfitCompositionView: View {
     var onSave: () -> Void
     var onCancel: () -> Void
     @State private var showSuccessOutfit = false
+    @Binding var selectedTab: Int
 
 
     @State private var items: [DraggableImage] = []
@@ -76,6 +77,7 @@ struct OutfitCompositionView: View {
                     Spacer()
 
                     Button("Guardar Outfit") {
+                        showSuccessOutfit = true
                         onSave()
                     }
                     .foregroundColor(.green)
@@ -91,6 +93,11 @@ struct OutfitCompositionView: View {
         .onAppear {
             items = images.map { DraggableImage(name: $0) }
         }
+        .alert("Outfit guardado con éxito", isPresented: $showSuccessOutfit) {
+                    Button("OK") {
+                        selectedTab = 3       // ← cambiar tab a 3
+                    }
+                }
     }
 }
 //
