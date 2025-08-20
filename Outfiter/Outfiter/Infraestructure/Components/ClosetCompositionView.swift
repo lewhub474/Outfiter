@@ -38,13 +38,13 @@ struct OutfitCompositionView: View {
                             .frame(width: 150, height: 150)
                             .scaleEffect(item.scale)
                             .position(item.position)
-                            .gesture(
+                            .simultaneousGesture( // 👈 combinar gestos
                                 DragGesture()
                                     .onChanged { value in
                                         item.position = value.location
                                     }
                             )
-                            .gesture(
+                            .simultaneousGesture(
                                 MagnificationGesture()
                                     .onChanged { value in
                                         item.scale = value
@@ -63,6 +63,40 @@ struct OutfitCompositionView: View {
                             .frame(width: 150, height: 150)
                     }
                 }
+
+//                AsyncImage(url: URL(string: item.name)) { phase in
+//                    if let image = phase.image {
+//                        image
+//                            .resizable()
+//                            .scaledToFit()
+//                            .frame(width: 150, height: 150)
+//                            .scaleEffect(item.scale)
+//                            .position(item.position)
+//                            .gesture(
+//                                DragGesture()
+//                                    .onChanged { value in
+//                                        item.position = value.location
+//                                    }
+//                            )
+//                            .gesture(
+//                                MagnificationGesture()
+//                                    .onChanged { value in
+//                                        item.scale = value
+//                                    }
+//                            )
+//                            .onAppear {
+//                                if item.position == .zero {
+//                                    item.position = CGPoint(
+//                                        x: UIScreen.main.bounds.midX,
+//                                        y: UIScreen.main.bounds.midY
+//                                    )
+//                                }
+//                            }
+//                    } else {
+//                        ProgressView()
+//                            .frame(width: 150, height: 150)
+//                    }
+//                }
             }
 
             // Botones arriba
