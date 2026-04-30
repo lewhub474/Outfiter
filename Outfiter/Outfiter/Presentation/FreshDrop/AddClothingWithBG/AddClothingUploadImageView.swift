@@ -302,6 +302,7 @@
 
 
 import SwiftUI
+import PhotosUI
 
 struct AddClothingUploadImageView: View {
     @Binding var name: String
@@ -317,9 +318,11 @@ struct AddClothingUploadImageView: View {
 
     @State private var selectedImage: UIImage?
     @State private var showImagePicker = false
-    @State private var showSourceTypeActionSheet = false
     @State private var imageSourceType: UIImagePickerController.SourceType = .photoLibrary
     @State private var showSuccessAlert = false
+    @State private var showSourcePicker = false
+    @State private var showPhotoPicker = false
+    @State private var photoPickerItem: PhotosPickerItem?
 
     var body: some View {
         ScrollView {
@@ -342,7 +345,7 @@ struct AddClothingUploadImageView: View {
 
                 // Botón seleccionar imagen
                 Button("Seleccionar Imagen") {
-                    showSourceTypeActionSheet = true
+                    showSourcePicker = true
                 }
                 .frame(maxWidth: .infinity)
                 .padding()
@@ -448,40 +451,50 @@ struct AddClothingUploadImageView: View {
         .onTapGesture {
             hideKeyboard()
         }
-        .background(Color.black)
-        .ignoresSafeArea(.keyboard, edges: .bottom)
-        .sheet(isPresented: $showImagePicker, onDismiss: {
-            if let image = selectedImage {
-                isProcessing = true
-                removeBGService.removeBackground(from: image) { result in
-                    DispatchQueue.main.async {
-                        isProcessing = false
-                        switch result {
-                        case .success(let data):
-                            if let finalImage = UIImage(data: data) {
-                                processedImage = finalImage
-                            }
-                        case .failure(let error):
-                            print("❌ Error al remover fondo: \(error.localizedDescription)")
-                        }
+        .onChange(of: photoPickerItem) { newItem in
+            guard let newItem else { return }
+            Task {
+                if let data = try? await newItem.loadTransferable(type: Data.self),
+                   let image = UIImage(data: data) {
+                    await MainActor.run {
+                        selectedImage = image
                     }
                 }
             }
-        }) {
+        }
+        .onChange(of: selectedImage) { newImage in
+            guard let newImage else { return }
+            processedImage = nil
+            isProcessing = true
+            removeBGService.removeBackground(from: newImage) { result in
+                DispatchQueue.main.async {
+                    isProcessing = false
+                    switch result {
+                    case .success(let data):
+                        if let finalImage = UIImage(data: data) {
+                            processedImage = finalImage
+                        }
+                    case .failure(let error):
+                        print("❌ Error al remover fondo: \(error.localizedDescription)")
+                    }
+                }
+            }
+        }
+        .background(Color.black)
+        .ignoresSafeArea(.keyboard, edges: .bottom)
+        .photosPicker(isPresented: $showPhotoPicker, selection: $photoPickerItem, matching: .images)
+        .sheet(isPresented: $showImagePicker) {
             ImagePicker(image: $selectedImage, sourceType: imageSourceType)
         }
-        .actionSheet(isPresented: $showSourceTypeActionSheet) {
-            ActionSheet(title: Text("Selecciona el origen de la imagen"), buttons: [
-                .default(Text("Galería")) {
-                    imageSourceType = .photoLibrary
-                    showImagePicker = true
-                },
-                .default(Text("Cámara")) {
-                    imageSourceType = .camera
-                    showImagePicker = true
-                },
-                .cancel()
-            ])
+        .confirmationDialog("Selecciona el origen de la imagen", isPresented: $showSourcePicker, titleVisibility: .visible) {
+            Button("Galería") {
+                showPhotoPicker = true
+            }
+            Button("Cámara") {
+                imageSourceType = .camera
+                showImagePicker = true
+            }
+            Button("Cancelar", role: .cancel) {}
         }
         .alert(isPresented: $showSuccessAlert) {
             Alert(
