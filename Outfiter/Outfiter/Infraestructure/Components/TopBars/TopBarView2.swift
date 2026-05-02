@@ -41,10 +41,10 @@ struct TopBarView2: View {
             }
             .padding(.horizontal)
             
-            Text("My Closet")
-                .font(.subheadline)
-                .foregroundColor(.white)
-                .bold()
+//            Text("My Closet")
+//                .font(.subheadline)
+//                .foregroundColor(.white)
+//                .bold()
         }
         .background(Color.black)
     }

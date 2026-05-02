@@ -242,13 +242,6 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
-		804C39242FA316760051A1A0 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
 		8067604F2DF34D52000A7049 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -350,6 +343,13 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		80B10E232FA62AC000298DAC /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		80CC717B2E3D649F00915FEA /* RemoveBackground */ = {
 			isa = PBXGroup;
 			children = (
@@ -449,7 +449,7 @@
 				80D5D2E42D686757004C672A /* Infraestructure */,
 				802317282DEEE18B00B279B8 /* Data */,
 				802317272DEEE0E000B279B8 /* Domain */,
-				804C39242FA316760051A1A0 /* ViewModels */,
+				80B10E232FA62AC000298DAC /* ViewModels */,
 				809D2D912E1C6A1400C47DF9 /* Utils */,
 				E2A9EC082A958C91005B5502 /* Assets.xcassets */,
 				E2A9EC0A2A958C91005B5502 /* Preview Content */,

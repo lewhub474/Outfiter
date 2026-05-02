@@ -104,11 +104,18 @@ struct SearchBarView: View {
         HStack {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.gray)
-            TextField("Buscar prenda...", text: $text)
-                .textFieldStyle(PlainTextFieldStyle())
-                .foregroundColor(.white)
-                .autocapitalization(.none)
-                .disableAutocorrection(true)
+            TextField(
+                "",
+                text: $text,
+                prompt: Text("My Closet")
+                    .foregroundColor(.white.opacity(0.6))
+                    .font(.headline)
+            )
+//            TextField("My Closet", text: $text)
+//                .textFieldStyle(PlainTextFieldStyle())
+//                .foregroundColor(.white)
+//                .autocapitalization(.none)
+//                .disableAutocorrection(true)
 
             if !text.isEmpty {
                 Button(action: {
@@ -125,4 +132,5 @@ struct SearchBarView: View {
         .padding(.horizontal)
     }
 }
+
 
